@@ -1,7 +1,6 @@
 import React from "react";
 import NavBar from "../../components/navbar/navbar.component";
 import Footer from "../../components/footer/footer.component";
-import {browserHistory} from "react-router";
 
 class Home extends React.Component {
 
@@ -17,7 +16,6 @@ class Home extends React.Component {
     }
         
     render() {
-        // browserHistory.push('/');
         return (
             <div>
                 <NavBar/>

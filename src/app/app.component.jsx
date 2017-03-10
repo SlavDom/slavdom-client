@@ -1,5 +1,4 @@
 import React from "react";
-import {Router, Route} from "react-router";
 import Home from "./pages/home/home.component";
 
 class App extends React.Component {
@@ -15,16 +14,6 @@ class App extends React.Component {
             logged: false
         };
 
-        // $.ajax(
-        //     '/api/translation',
-        //     {
-        //         method: 'GET',
-        //         data: [id=1],
-        //         success: function () {
-        //
-        //         }
-        //     }
-        // );
     }
 
     handleRequestClose() {

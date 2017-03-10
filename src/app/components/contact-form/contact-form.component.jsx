@@ -1,11 +1,6 @@
-import React from "react";
+import React, {Component} from "react";
 
-    export default class ContactForm extends React.Component {
-
-    constructor() {
-        super()
-    }
-
+export default class ContactForm extends Component {
     render() {
         return (
             <form method="post">
