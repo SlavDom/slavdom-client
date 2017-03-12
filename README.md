@@ -11,7 +11,7 @@ This README would normally document whatever steps are necessary to get your app
 ### How do I get set up? ###
 
 * For successful setup you should:
-  * install npm and yarn to your computer
+  * install node and yarn to your computer
   * open the main folder of the project
   * call "yarn" and wait untill necessary packages will be installed
   * call for "yarn start" to run the application
