@@ -2,6 +2,7 @@ import React from "react";
 import RightLoggedMenu from "./chunks/right-logged-menu.component";
 import RightNotLoggedMenu from "./chunks/right-not-logged-menu.component";
 import LeftMenu from "./chunks/left-menu.component";
+import {Link} from "react-router";
 
 export default class NavBar extends React.Component {
 
@@ -20,9 +21,9 @@ export default class NavBar extends React.Component {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                         </button>
-                        <div className="navbar-brand">
+                        <Link to="/" className="navbar-brand" activeClassName="active">
                             SlavDom
-                        </div>
+                        </Link>
                     </div>
                     <div className="navbar-collapse collapse" id="main-navbar">
                         <LeftMenu/>

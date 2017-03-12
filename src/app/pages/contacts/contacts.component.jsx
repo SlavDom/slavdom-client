@@ -3,8 +3,6 @@ import ContactForm from "../../components/contact-form/contact-form.component";
 
 class Contacts extends React.Component {
 
-    private title;
-
     constructor() {
         super();
         this.title = 'Contacts';

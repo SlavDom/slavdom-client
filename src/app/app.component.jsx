@@ -1,5 +1,6 @@
 import React from "react";
-import Home from "./pages/home/home.component";
+import NavBar from "./components/navbar/navbar.component";
+import Footer from "./components/footer/footer.component";
 
 class App extends React.Component {
 
@@ -31,7 +32,9 @@ class App extends React.Component {
     render() {
         return (
                 <div className="wrapper">
-                    <Home/>
+                    <NavBar/>
+                    {this.props.children}
+                    <Footer/>
                 </div>
         );
     }

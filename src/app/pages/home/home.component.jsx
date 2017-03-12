@@ -1,6 +1,4 @@
 import React from "react";
-import NavBar from "../../components/navbar/navbar.component";
-import Footer from "../../components/footer/footer.component";
 
 class Home extends React.Component {
 
@@ -18,14 +16,9 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <NavBar/>
                 <div className="container">
                     <p>{this.app_card_text}</p>
                 </div>
-                <Footer/>
-                <main>
-                    {this.props.children}
-                </main>
             </div>
         );
     }
