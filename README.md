@@ -16,7 +16,6 @@ This README would normally document whatever steps are necessary to get your app
   * call "yarn" and wait untill necessary packages will be installed
   * call for "yarn start" to run the application
 * Dependencies: Look at "packages.json" for reviewing what packages are used in the project.
-* Postgres 9.6.2, port: 5432, login: postgres, password:postgres, database:slavia
 * How to run tests: there are still no tests yet.
 * Deployment instructions: there is no deploy yet
 
