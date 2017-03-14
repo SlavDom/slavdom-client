@@ -9,6 +9,7 @@ import NotFound from "./app/pages/not-found/not-found.component";
 import FAQ from "./app/pages/faq/faq.component";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import "./index.css";
 
 const rootEl = document.getElementById('root');
