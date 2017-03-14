@@ -9,7 +9,7 @@ Client of the SlavDom web portal
 ### How do I get set up? ###
 
 * For successful setup you should:
-  * install node and optionally yarn to your computer
+  * install Node JS >= 6 and optionally yarn to your computer
   * open the main folder of the project
   * call "npm install" ("yarn install") and wait untill necessary packages will be installed
   * call for "npm start" ("yarn start") to run the application
