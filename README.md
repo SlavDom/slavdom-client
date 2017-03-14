@@ -23,7 +23,6 @@ This README would normally document whatever steps are necessary to get your app
 
 * Writing tests
 * Code review
-* To collect documentation page please run from the server folder: "jsdoc -c conf.json ./build/ -P ./package.json -R ../README.md"
 * Other guidelines
 
 ### Who do I talk to? ###
