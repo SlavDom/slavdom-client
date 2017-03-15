@@ -24,16 +24,5 @@ ReactDOM.render(
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>,
-    rootEl
+    rootEl,
 );
-
-// Hot Module Reloading
-if (module.hot) {
-    module.hot.accept('./app/app.component', () => {
-        const NextApp = require('./app/app.component.jsx').default;
-        ReactDOM.render(
-            <NextApp/>,
-            rootEl
-        );
-    });
-}
