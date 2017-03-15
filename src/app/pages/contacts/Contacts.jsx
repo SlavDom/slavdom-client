@@ -1,5 +1,5 @@
 import React from "react";
-import ContactForm from "../../components/contact-form/contact-form.component";
+import ContactForm from "../../components/contact-form/ContactForm";
 
 class Contacts extends React.Component {
 

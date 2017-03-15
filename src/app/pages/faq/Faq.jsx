@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class FAQ extends React.Component {
+export default class Faq extends React.Component {
 
     render () {
         return (

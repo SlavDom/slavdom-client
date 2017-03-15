@@ -1,13 +1,12 @@
-import React from "react";
-import Login from "./login.component";
-import Register from "./register.component";
+import React from 'react';
+import { Link } from 'react-router';
 
 class RightNotLoggedMenu extends React.Component {
     render () {
         return (
                 <ul className="nav navbar-nav navbar-right">
-                    <Login/>
-                    <Register/>
+                    <li><Link to="/signin">Sign in</Link></li>
+                    <li><Link to="/signup">Sign up</Link></li>
                 </ul>
         );
     }

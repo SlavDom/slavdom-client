@@ -1,10 +1,10 @@
 import React from "react";
-import RightLoggedMenu from "./chunks/right-logged-menu.component";
-import RightNotLoggedMenu from "./chunks/right-not-logged-menu.component";
-import LeftMenu from "./chunks/left-menu.component";
+import RightLoggedMenu from "./chunks/RightLoggedMenu";
+import RightNotLoggedMenu from "./chunks/RightNotLoggedMenu";
+import LeftMenu from "./chunks/LeftMenu";
 import {Link} from "react-router";
 
-export default class NavBar extends React.Component {
+export default class Navbar extends React.Component {
 
     render() {
         return (
@@ -17,9 +17,9 @@ export default class NavBar extends React.Component {
                                 data-target="#main-navbar"
                                 aria-expanded="false">
                         <span className="sr-only">Toggle navigation</span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
-                        <span className="icon-bar"></span>
+                        <span className="icon-bar" />
+                        <span className="icon-bar" />
+                        <span className="icon-bar" />
                         </button>
                         <Link to="/" className="navbar-brand" activeClassName="active">
                             SlavDom

@@ -1,6 +1,7 @@
 import React from "react";
-import NavBar from "./components/navbar/navbar.component";
-import Footer from "./components/footer/footer.component";
+import NavBar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
+import './App.css';
 
 class App extends React.Component {
 
