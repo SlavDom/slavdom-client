@@ -1,8 +1,7 @@
-import React from "react";
+import React from 'react';
 
 export default class Signin extends React.Component {
-
-  render () {
+  render() {
     return (
       <p>
         Sign in page.

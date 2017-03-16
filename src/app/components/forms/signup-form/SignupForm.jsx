@@ -12,7 +12,7 @@ export default class SignupForm extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      timezone: ''
+      timezone: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -20,7 +20,7 @@ export default class SignupForm extends React.Component {
 
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 
@@ -30,7 +30,6 @@ export default class SignupForm extends React.Component {
   }
 
   render() {
-
     const timezoneOptions = map(timezones, (value, key) => <option key={value} value={value}>{key}</option>);
 
     return (
@@ -38,8 +37,9 @@ export default class SignupForm extends React.Component {
         <h1>Join our community!</h1>
 
         <div className="form-group">
-          <label className="control-label">Username</label>
+          <label className="control-label" htmlFor="signup_username">Username</label>
           <input
+            id="signup_username"
             value={this.state.username}
             onChange={this.onChange}
             type="text"
@@ -49,8 +49,9 @@ export default class SignupForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="control-label">Email</label>
+          <label className="control-label" htmlFor="signup_email">Email</label>
           <input
+            id="signup_email"
             value={this.state.email}
             onChange={this.onChange}
             type="text"
@@ -60,8 +61,9 @@ export default class SignupForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="control-label">Password</label>
+          <label className="control-label" htmlFor="signup_password">Password</label>
           <input
+            id="signup_password"
             value={this.state.password}
             onChange={this.onChange}
             type="password"
@@ -71,8 +73,9 @@ export default class SignupForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="control-label">Password Confirmation</label>
+          <label className="control-label" htmlFor="signup_password_confirmation">Password Confirmation</label>
           <input
+            id="signup_password_confirmation"
             value={this.state.passwordConfirmation}
             onChange={this.onChange}
             type="password"
@@ -82,8 +85,9 @@ export default class SignupForm extends React.Component {
         </div>
 
         <div className="form-group">
-          <label className="control-label">Timezone</label>
+          <label className="control-label" htmlFor="signup_timezone">Timezone</label>
           <select
+            id="signup_timezone"
             value={this.state.timezone}
             onChange={this.onChange}
             type="text"
