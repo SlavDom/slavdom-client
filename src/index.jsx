@@ -3,15 +3,23 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/js/bootstrap';
 
 import React from 'react';
-import { Router, browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
-import routes from './routes';
+import { Router, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
+import routes from './routes';
 import './index.css';
 
-const rootEl = document.getElementById('root');
+const store = createStore(
+  (state = {}) => state,
+  applyMiddleware(thunk),
+);
 
 ReactDOM.render(
-  <Router history={browserHistory} routes={routes} />,
-  rootEl,
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
+  document.getElementById('root'),
 );
