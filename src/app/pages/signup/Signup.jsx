@@ -6,7 +6,6 @@ import userSignupRequest from '../../actions/signupActions';
 
 class Signup extends React.Component {
   render() {
-    // eslint-disable-next-line no-shadow
     const { userSignupRequest } = this.props;
     return (
       <div className="row">
