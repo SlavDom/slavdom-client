@@ -6,7 +6,6 @@ import RightNotLoggedMenu from './chunks/RightNotLoggedMenu';
 import LeftMenu from './chunks/LeftMenu';
 
 export default class Navbar extends React.Component {
-
   render() {
     return (
       <nav className="navbar navbar-default navbar-static-top">
@@ -32,7 +31,7 @@ export default class Navbar extends React.Component {
           <LeftMenu />
           {this.props.logged
               ? <RightLoggedMenu />
-              : <RightNotLoggedMenu lang={this.props.lang} handlerLang={this.props.handlerLang} /> }
+              : <RightNotLoggedMenu lang={this.props.lang} handlerLang={this.props.handlerLang} />}
         </div>
       </nav>
     );
@@ -41,11 +40,10 @@ export default class Navbar extends React.Component {
 
 Navbar.propTypes = {
   logged: React.PropTypes.bool,
-  lang: React.PropTypes.string,
+  lang: React.PropTypes.string.isRequired,
   handlerLang: React.PropTypes.func.isRequired,
 };
 
 Navbar.defaultProps = {
   logged: false,
-  lang: 'en',
 };

@@ -9,20 +9,20 @@ class RightNotLoggedMenu extends React.Component {
   constructor() {
     super();
     this.state = {
-      sign_in: '',
+      sign_in: 'Sign in',
     };
   }
 
   componentDidMount() {
     axios.get(`/api/translations/package?lang=${this.props.lang}&code=["sign_in"]`)
-          .then((response) => {
-            this.setState({
-              sign_in: response.data.data[0],
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      .then((response) => {
+        this.setState({
+          sign_in: response.data.data[0],
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   shouldComponentUpdate(nextProps, nextStates) {
@@ -31,14 +31,14 @@ class RightNotLoggedMenu extends React.Component {
 
   componentWillUpdate(nextProps) {
     axios.get(`/api/translations/package?lang=${nextProps.lang}&code=["sign_in"]`)
-              .then((response) => {
-                this.setState({
-                  sign_in: response.data.data[0],
-                });
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+      .then((response) => {
+        this.setState({
+          sign_in: response.data.data[0],
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -61,19 +61,15 @@ class RightNotLoggedMenu extends React.Component {
           </ul>
         </li>
         <li><Link to="/signup">Sign up</Link></li>
-        <li><Link to="/signin">{this.state.sign_in ? <b>{this.state.sign_in}</b> : null}</Link></li>
+        <li><Link to="/signin">{this.state.sign_in}</Link></li>
       </ul>
     );
   }
 }
 
 RightNotLoggedMenu.propTypes = {
-  lang: React.PropTypes.string,
+  lang: React.PropTypes.string.isRequired,
   handlerLang: React.PropTypes.func.isRequired,
-};
-
-RightNotLoggedMenu.defaultProps = {
-  lang: 'en',
 };
 
 export default RightNotLoggedMenu;
