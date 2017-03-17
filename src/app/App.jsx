@@ -11,10 +11,12 @@ class App extends React.Component {
 
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
+    this.handlerLang = this.handlerLang.bind(this);
 
     this.state = {
       open: false,
       logged: false,
+      lang: 'en',
     };
   }
 
@@ -30,10 +32,16 @@ class App extends React.Component {
     });
   }
 
+  handlerLang(e) {
+    this.setState({
+      lang: e,
+    });
+  }
+
   render() {
     return (
       <div className="wrapper">
-        <NavBar />
+        <NavBar lang={this.state.lang} handlerLang={this.handlerLang} />
         {this.props.children}
         <Footer />
       </div>
