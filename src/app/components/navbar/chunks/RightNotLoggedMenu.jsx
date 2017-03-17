@@ -2,21 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 
-class RightNotLoggedMenu extends React.Component {
+import getLang from '../../../utils/languages';
 
-  static getLang(e) {
-    let res = '';
-    switch (e) {
-      case 'en': res = 'English';
-        break;
-      case 'nsl': res = 'Новословница';
-        break;
-      case 'is': res = 'Interslavic';
-        break;
-      default: break;
-    }
-    return res;
-  }
+class RightNotLoggedMenu extends React.Component {
 
   constructor() {
     super();
@@ -62,8 +50,9 @@ class RightNotLoggedMenu extends React.Component {
             className="dropdown-toggle"
             type="button" id="dropdownMenu1" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="true"
-          >{this.props.lang ? <b>{RightNotLoggedMenu.getLang(this.props.lang)}</b> : null} <span className="caret" /></a
-         >
+          >
+            {this.props.lang ? <b>{getLang(this.props.lang)}</b> : null} <span className="caret" />
+          </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><Link onClick={() => this.props.handlerLang('en')}>English</Link></li>
             <li><Link onClick={() => this.props.handlerLang('nsl')}>Новословница</Link></li>

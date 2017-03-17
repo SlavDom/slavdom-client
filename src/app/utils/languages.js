@@ -12,7 +12,4 @@ function getLang(e) {
   return res;
 }
 
-export default {
-  getLang,
-};
-
+export default getLang;
