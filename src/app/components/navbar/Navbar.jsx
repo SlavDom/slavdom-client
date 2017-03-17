@@ -42,11 +42,10 @@ export default class Navbar extends React.Component {
 Navbar.propTypes = {
   logged: React.PropTypes.bool,
   lang: React.PropTypes.string,
-  handlerLang: React.PropTypes.func,
+  handlerLang: React.PropTypes.func.isRequired,
 };
 
 Navbar.defaultProps = {
   logged: false,
-  lang: '',
-  handlerLang: () => {},
+  lang: 'en',
 };

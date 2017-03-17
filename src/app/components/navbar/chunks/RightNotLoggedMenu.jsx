@@ -51,7 +51,8 @@ class RightNotLoggedMenu extends React.Component {
             type="button" id="dropdownMenu1" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="true"
           >
-            {this.props.lang ? <b>{getLang(this.props.lang)}</b> : null} <span className="caret" />
+            {getLang(this.props.lang)}
+            <span className="caret" />
           </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><Link onClick={() => this.props.handlerLang('en')}>English</Link></li>
@@ -68,12 +69,11 @@ class RightNotLoggedMenu extends React.Component {
 
 RightNotLoggedMenu.propTypes = {
   lang: React.PropTypes.string,
-  handlerLang: React.PropTypes.func,
+  handlerLang: React.PropTypes.func.isRequired,
 };
 
 RightNotLoggedMenu.defaultProps = {
-  lang: '',
-  handlerLang: () => {},
+  lang: 'en',
 };
 
 export default RightNotLoggedMenu;
