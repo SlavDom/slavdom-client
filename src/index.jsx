@@ -8,13 +8,16 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import routes from './routes';
 import './index.css';
 
 const store = createStore(
   (state = {}) => state,
-  applyMiddleware(thunk),
+  composeWithDevTools(
+    applyMiddleware(thunk),
+  ),
 );
 
 ReactDOM.render(
