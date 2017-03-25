@@ -13,32 +13,18 @@ class RightNotLoggedMenu extends React.Component {
     };
   }
 
-  componentDidMount() {
-    axios.get(`/api/translations/package?lang=${this.props.lang}&code=["sign_in"]`)
-      .then((response) => {
-        this.setState({
-          sign_in: response.data.data[0],
+  componentWillReceiveProps(nextProps) {
+    if (this.props.lang !== nextProps.lang) {
+      axios.get(`/api/translations/package?lang=${nextProps.lang}&code=["sign_in"]`)
+        .then((response) => {
+          this.setState({
+            sign_in: response.data.data[0],
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  shouldComponentUpdate(nextProps, nextStates) {
-    return this.props.lang !== nextProps.lang || this.state.sign_in !== nextStates.sign_in;
-  }
-
-  componentWillUpdate(nextProps) {
-    axios.get(`/api/translations/package?lang=${nextProps.lang}&code=["sign_in"]`)
-      .then((response) => {
-        this.setState({
-          sign_in: response.data.data[0],
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    }
   }
 
   render() {
@@ -55,9 +41,9 @@ class RightNotLoggedMenu extends React.Component {
             <span className="caret" />
           </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><Link onClick={() => this.props.handlerLang('en')}>English</Link></li>
-            <li><Link onClick={() => this.props.handlerLang('nsl')}>Новословница</Link></li>
-            <li><Link onClick={() => this.props.handlerLang('is')}>Interslavic</Link></li>
+            <li><Link onClick={() => this.props.handlerLang('en')} to="">English</Link></li>
+            <li><Link onClick={() => this.props.handlerLang('nsl')} to="">Новословница</Link></li>
+            <li><Link onClick={() => this.props.handlerLang('is')} to="">Interslavic</Link></li>
           </ul>
         </li>
         <li><Link to="/signup">Sign up</Link></li>
