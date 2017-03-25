@@ -8,7 +8,7 @@ import LeftMenu from './chunks/LeftMenu';
 export default class Navbar extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-default navbar-static-top">
+      <nav className="navbar navbar-inverse navbar-static-top">
         <div className="container-fluid" />
         <div className="navbar-header">
           <button

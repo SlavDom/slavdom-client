@@ -3,7 +3,7 @@ import React from 'react';
 class Footer extends React.Component {
   render() {
     return (
-      <p>SlavDom, inc. (c) Slavic Team 2017</p>
+      <footer>SlavDom, inc. (c) Slavic Team 2017</footer>
     );
   }
 }
