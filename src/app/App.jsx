@@ -2,6 +2,7 @@ import React from 'react';
 
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
+import FlashMessagesList from './components/common/FlashMessagesList';
 import './App.css';
 
 class App extends React.Component {
@@ -42,6 +43,7 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <NavBar lang={this.state.lang} handlerLang={this.handlerLang} />
+        <FlashMessagesList />
         {this.props.children}
         <Footer />
       </div>

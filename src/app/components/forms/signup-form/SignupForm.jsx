@@ -1,6 +1,7 @@
 import React from 'react';
 import map from 'lodash/map';
 import classnames from 'classnames';
+import { browserHistory } from 'react-router';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
@@ -38,7 +39,12 @@ export default class SignupForm extends React.Component {
       });
       this.props.userSignupRequest(this.state).then(
         () => {
+          this.props.addFlashMessage({
+            type: 'success',
+            text: 'You signed up successfully. Welcome!',
+          });
           this.setState({ isLoading: false });
+          browserHistory.push('/');
         },
       ).catch(error => this.setState({
         errors: error.response.data,
@@ -124,4 +130,5 @@ export default class SignupForm extends React.Component {
 
 SignupForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
+  addFlashMessage: React.PropTypes.func.isRequired,
 };

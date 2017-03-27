@@ -9,11 +9,12 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import rootReducer from './rootReducer';
 import routes from './routes';
 import './index.css';
 
 const store = createStore(
-  (state = {}) => state,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk),
   ),
