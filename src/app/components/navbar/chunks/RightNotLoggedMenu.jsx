@@ -30,6 +30,7 @@ class RightNotLoggedMenu extends React.Component {
   render() {
     return (
       <ul className="nav navbar-nav navbar-right">
+        <li><Link>Forum</Link></li>
         <li className="dropdown">
           <a
             href=""
@@ -41,9 +42,9 @@ class RightNotLoggedMenu extends React.Component {
             <span className="caret" />
           </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><Link onClick={() => this.props.handlerLang('en')} to="">English</Link></li>
-            <li><Link onClick={() => this.props.handlerLang('nsl')} to="">Новословница</Link></li>
-            <li><Link onClick={() => this.props.handlerLang('is')} to="">Interslavic</Link></li>
+            <li><Link onClick={this.props.toEnglish} to="">English</Link></li>
+            <li><Link onClick={this.props.toNovoslovnica} to="">Новословница</Link></li>
+            <li><Link onClick={this.props.toInterslavic} to="">Interslavic</Link></li>
           </ul>
         </li>
         <li><Link to="/signup">Sign up</Link></li>
@@ -55,7 +56,9 @@ class RightNotLoggedMenu extends React.Component {
 
 RightNotLoggedMenu.propTypes = {
   lang: React.PropTypes.string.isRequired,
-  handlerLang: React.PropTypes.func.isRequired,
+  toEnglish: React.PropTypes.func.isRequired,
+  toNovoslovnica: React.PropTypes.func.isRequired,
+  toInterslavic: React.PropTypes.func.isRequired,
 };
 
 export default RightNotLoggedMenu;

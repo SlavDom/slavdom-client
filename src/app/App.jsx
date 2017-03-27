@@ -1,5 +1,4 @@
 import React from 'react';
-
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import FlashMessagesList from './components/common/FlashMessagesList';
@@ -50,6 +49,7 @@ class App extends React.Component {
     );
   }
 }
+
 
 App.propTypes = {
   children: React.PropTypes.node.isRequired,
