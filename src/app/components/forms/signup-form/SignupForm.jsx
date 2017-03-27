@@ -1,11 +1,12 @@
 import React from 'react';
 import map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import { browserHistory } from 'react-router';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
-import validateInput from '../../../../../../server/shared/validations/signup';
+import validateInput from '../../../validations/signup';
 
 export default class SignupForm extends React.Component {
 
@@ -61,15 +62,12 @@ export default class SignupForm extends React.Component {
     if (value !== '') {
       this.props.isUserExists(value).then((res) => {
         const errors = this.state.errors;
-        let invalid;
         if (res.data.user) {
           errors[field] = `There is user with such ${field}`;
-          invalid = true;
         } else {
-          errors[field] = '';
-          invalid = false;
+          delete errors[field];
         }
-        this.setState({ errors, invalid });
+        this.setState({ errors, invalid: !isEmpty(errors) });
       });
     }
   }
