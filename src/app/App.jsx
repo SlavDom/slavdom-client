@@ -43,7 +43,9 @@ class App extends React.Component {
       <div className="wrapper">
         <NavBar lang={this.state.lang} handlerLang={this.handlerLang} />
         <FlashMessagesList />
-        {this.props.children}
+        <div className="container-fluid">
+          {this.props.children}
+        </div>
         <Footer />
       </div>
     );

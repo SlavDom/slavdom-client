@@ -68,9 +68,7 @@ class Home extends React.Component {
        </p>
        */
       <div>
-        <div className="container">
-          {newsList}
-        </div>
+        {newsList}
       </div>
     );
   }

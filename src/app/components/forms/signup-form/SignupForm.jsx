@@ -3,6 +3,7 @@ import map from 'lodash/map';
 import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import { browserHistory } from 'react-router';
+import axios from 'axios';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
@@ -12,6 +13,7 @@ export default class SignupForm extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       username: '',
       email: '',
@@ -21,10 +23,59 @@ export default class SignupForm extends React.Component {
       errors: {},
       isLoading: false,
       invalid: false,
+      lang: 'en',
+      $email: '',
+      $username: '',
+      $password: '',
+      $password_confirmation: '',
+      $join_us: '',
+      $sign_up: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get(`/api/translations/package?lang=${this.state.lang}&code=[
+"reg$email","reg$username","reg$password","reg$password_confirmation","reg$join_us","sign_up"]`)
+      .then((response) => {
+        this.setState({
+          $email: response.data.data[0],
+          $username: response.data.data[1],
+          $password: response.data.data[2],
+          $password_confirmation: response.data.data[3],
+          $join_us: response.data.data[4],
+          $sign_up: response.data.data[5],
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { lang } = nextProps;
+    const previousValue = this.state.lang;
+    const currentValue = lang;
+    if (currentValue !== previousValue) {
+      axios.get(`/api/translations/package?lang=${currentValue}&code=[
+"reg$email","reg$username","reg$password","reg$password_confirmation","reg$join_us","sign_up"]`)
+        .then((response) => {
+          this.setState({
+            $email: response.data.data[0],
+            $username: response.data.data[1],
+            $password: response.data.data[2],
+            $password_confirmation: response.data.data[3],
+            $join_us: response.data.data[4],
+            $sign_up: response.data.data[5],
+            lang: currentValue,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   onChange(event) {
@@ -86,11 +137,11 @@ export default class SignupForm extends React.Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <h1>Join our community!</h1>
+        <h1>{this.state.$join_us}</h1>
 
         <TextFieldGroup
           error={errors.username}
-          label="Username"
+          label={this.state.$username}
           onChange={this.onChange}
           checkUserExists={this.checkUserExists}
           value={this.state.username}
@@ -99,7 +150,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.email}
-          label="Email"
+          label={this.state.$email}
           onChange={this.onChange}
           checkUserExists={this.checkUserExists}
           value={this.state.email}
@@ -108,7 +159,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.password}
-          label="Password"
+          label={this.state.$password}
           onChange={this.onChange}
           value={this.state.password}
           field="password"
@@ -117,7 +168,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.passwordConfirmation}
-          label="Password Confirmation"
+          label={this.state.$password_confirmation}
           onChange={this.onChange}
           value={this.state.passwordConfirmation}
           field="passwordConfirmation"
@@ -144,7 +195,7 @@ export default class SignupForm extends React.Component {
           <button
             className="btn btn-primary btn-lg"
             disabled={this.state.isLoading || this.state.invalid}
-          >Sign up</button>
+          >{this.state.$sign_up}</button>
         </div>
 
       </form>
@@ -156,4 +207,5 @@ SignupForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
   addFlashMessage: React.PropTypes.func.isRequired,
   isUserExists: React.PropTypes.func.isRequired,
+  lang: React.PropTypes.string.isRequired,
 };
