@@ -7,7 +7,7 @@ class News extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      newsList: {},
+      newsList: null,
       lang: props.lang,
     };
   }
@@ -31,10 +31,17 @@ class News extends React.Component {
     if (currentValue !== previousValue) {
       axios.get(`/api/news/get?lang=${currentValue}&theme=${this.props.params.theme}`)
         .then((response) => {
-          this.setState({
-            newsList: response.data.data,
-            lang: currentValue,
-          });
+          if (response !== null) {
+            this.setState({
+              newsList: response.data.data,
+              lang: currentValue,
+            });
+          } else {
+            this.setState({
+              newsList: null,
+              lang: currentValue,
+            });
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -43,15 +50,21 @@ class News extends React.Component {
   }
 
   render() {
-    return (
-      <div>
+    let newsPage = null;
+    if (this.state.newsList !== null) {
+      newsPage = (<div>
         <h1>{this.state.newsList.title}</h1>
-        <p> This is a news page with theme: {this.props.params.theme}.</p>
+        <p>This is a news page with theme: {this.props.params.theme}.</p>
         <div>
           {this.state.newsList.fullText}
         </div>
-      </div>
-    );
+      </div>);
+    } else {
+      newsPage = (<div>
+          There is no translation for this news yet.
+        </div>);
+    }
+    return (<div>{newsPage}</div>);
   }
 }
 

@@ -19,6 +19,7 @@ export default (
     <Route path="faq" component={FAQ} />
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />
+    <Route path="news" component={Home} />
     <Route path="news/:theme" component={News} />
     <Route path="*" component={NotFound} />
   </Route>
