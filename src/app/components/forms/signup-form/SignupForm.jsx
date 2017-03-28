@@ -15,6 +15,7 @@ export default class SignupForm extends React.Component {
     super(props);
 
     this.state = {
+      usernameIsTouched: false,
       username: '',
       email: '',
       password: '',
@@ -120,6 +121,10 @@ export default class SignupForm extends React.Component {
         }
         this.setState({ errors, invalid: !isEmpty(errors) });
       });
+    } else {
+      const errors = this.state.errors;
+      errors[field] = '';
+      this.setState({ errors, invalid: !isEmpty(errors) });
     }
   }
 
