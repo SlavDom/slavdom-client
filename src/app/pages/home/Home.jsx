@@ -45,7 +45,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.state.newsList);
     let newsList = '';
     if (this.state.newsList.length === 0) {
       newsList = <div>There is no news yet</div>;
@@ -54,13 +53,15 @@ class Home extends React.Component {
         <div className="jumbotron">
           <div className="row">
             <div className="col-md-3">
-              <img src="" alt="Something describing news" />
+              <Link to="" className="thumbnail">
+                <img src="/images/default.png" alt="Something describing news" />
+              </Link>
             </div>
             <div className="col-md-9">
               <h2>{item.title}</h2>
               <hr />
               <div><p>{item.shortText}</p></div>
-              <Link className="btn btn-primary" to="">Read more</Link>
+              <Link className="btn btn-primary" to={`/news/${item.theme}`}>Read more</Link>
             </div>
           </div>
         </div>);

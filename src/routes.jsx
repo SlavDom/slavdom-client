@@ -9,6 +9,7 @@ import NotFound from './app/pages/not-found/NotFound';
 import FAQ from './app/pages/faq/Faq';
 import Signin from './app/pages/signin/Signin';
 import Signup from './app/pages/signup/Signup';
+import News from './app/pages/news/News';
 
 export default (
   <Route path="/" component={App}>
@@ -18,6 +19,7 @@ export default (
     <Route path="faq" component={FAQ} />
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />
+    <Route path="news/:theme" component={News} />
     <Route path="*" component={NotFound} />
   </Route>
 );
