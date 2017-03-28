@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import './Home.css';
 
 class Home extends React.Component {
 
@@ -49,24 +51,21 @@ class Home extends React.Component {
       newsList = <div>There is no news yet</div>;
     } else {
       newsList = this.state.newsList.map(item =>
-        <div>
-          <h1>{item.title}</h1>
-          <div><p>{item.shortText}</p></div>
+        <div className="jumbotron">
+          <div className="row">
+            <div className="col-md-3">
+              <img src="" alt="Something describing news" />
+            </div>
+            <div className="col-md-9">
+              <h2>{item.title}</h2>
+              <hr />
+              <div><p>{item.shortText}</p></div>
+              <Link className="btn btn-primary" to="">Read more</Link>
+            </div>
+          </div>
         </div>);
     }
     return (
-      /* <p>
-       Interslavic is a language used by Slavs of different nations for communication among themselves.
-       This is made possible by the fact that the Slavic languages are a relatively coherent family:
-       knowing one of them is usually sufficient to get a rough idea of what a text in any other Slavic language is
-       about.Throughout the centuries, Slavs have learned to talk to their neighbours by means of simple,
-       improvised language forms.Simultaneously, the similarity of the Slavic languages has inspired linguists and
-       others to create a generic Slavic language that would be understandable for all Slavs alike.
-       This includes the famous Church Slavonic language from the 9th century, as well as many other
-       projects,published from the 16th century onwards under names like „Pan-Slavic”, „Interslavic”, „New Slavic”,
-       „Common Slavic” or simply „Slavic”, all based on the same assumptions and therefore nearly identical.
-       </p>
-       */
       <div>
         {newsList}
       </div>
