@@ -23,7 +23,7 @@ export default class SignupForm extends React.Component {
       errors: {},
       isLoading: false,
       invalid: false,
-      lang: 'en',
+      lang: props.lang,
       $email: '',
       $username: '',
       $password: '',
