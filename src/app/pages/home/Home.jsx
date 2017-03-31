@@ -11,14 +11,20 @@ class Home extends React.Component {
     this.state = {
       newsList: [],
       lang: props.lang,
+      page: 1,
+      length: 5,
+      amount: 0,
     };
+    this.getNextPage = this.getNextPage.bind(this);
+    this.getPrevPage = this.getPrevPage.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`/api/news/list?lang=${this.state.lang}`)
+    axios.get(`/api/news/list?lang=${this.state.lang}&page=${this.state.page}&amount=${this.state.length}`)
       .then((response) => {
         this.setState({
           newsList: response.data.data,
+          amount: response.data.amount,
         });
       })
       .catch((error) => {
@@ -31,11 +37,12 @@ class Home extends React.Component {
     const previousValue = this.state.lang;
     const currentValue = lang;
     if (currentValue !== previousValue) {
-      axios.get(`/api/news/list?lang=${currentValue}`)
+      axios.get(`/api/news/list?lang=${currentValue}&page=${this.state.page}&amount=${this.state.length}`)
         .then((response) => {
           this.setState({
             newsList: response.data.data,
             lang: currentValue,
+            amount: response.data.amount,
           });
         })
         .catch((error) => {
@@ -44,8 +51,38 @@ class Home extends React.Component {
     }
   }
 
+  getNextPage() {
+    axios.get(`/api/news/list?lang=${this.state.lang}&page=${this.state.page + 1}&amount=${this.state.length}`)
+      .then((response) => {
+        this.setState({
+          newsList: response.data.data,
+          page: this.state.page + 1,
+          amount: response.data.amount,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getPrevPage() {
+    axios.get(`/api/news/list?lang=${this.state.lang}&page=${this.state.page - 1}&amount=${this.state.length}`)
+      .then((response) => {
+        this.setState({
+          newsList: response.data.data,
+          page: this.state.page - 1,
+          amount: response.data.amount,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     let newsList = '';
+    let prevButton = '';
+    let nextButton = '';
     if (this.state.newsList.length === 0) {
       newsList = <div>There is no news yet</div>;
     } else {
@@ -66,9 +103,27 @@ class Home extends React.Component {
           </div>
         </div>);
     }
+    if (this.state.page > 1) {
+      prevButton = (<button className="btn btn-primary" id="prevButton" onClick={this.getPrevPage}>
+          Previous
+        </button>);
+    }
+    if (this.state.amount - (this.state.page * this.state.length) > 0) {
+      nextButton = (<button className="btn btn-primary" id="nextButton" onClick={this.getNextPage}>
+          Next
+        </button>);
+    }
     return (
       <div>
         {newsList}
+        <div className="row">
+          <div className="col-md-2">
+            {prevButton}
+          </div>
+          <div className="col-md-offset-10 col-md-2">
+            {nextButton}
+          </div>
+        </div>
       </div>
     );
   }
