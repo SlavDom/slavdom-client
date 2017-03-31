@@ -30,7 +30,7 @@ export default class SignupForm extends React.Component {
       $password: '',
       $password_confirmation: '',
       $join_us: '',
-      $sign_up: '',
+      $sign_up: 'Sign up',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -38,16 +38,14 @@ export default class SignupForm extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/translations/package?lang=${this.state.lang}&code=[
-"reg$email","reg$username","reg$password","reg$password_confirmation","reg$join_us","sign_up"]`)
+    axios.get(`/api/translations/page?lang=${this.state.lang}&prefix=reg`)
       .then((response) => {
         this.setState({
-          $email: response.data.data[0],
-          $username: response.data.data[1],
-          $password: response.data.data[2],
-          $password_confirmation: response.data.data[3],
-          $join_us: response.data.data[4],
-          $sign_up: response.data.data[5],
+          $email: response.data.data.reg$email,
+          $username: response.data.data.reg$username,
+          $password: response.data.data.reg$password,
+          $password_confirmation: response.data.data.reg$password_confirmation,
+          $join_us: response.data.data.reg$join_us,
         });
       })
       .catch((error) => {
@@ -60,16 +58,14 @@ export default class SignupForm extends React.Component {
     const previousValue = this.state.lang;
     const currentValue = lang;
     if (currentValue !== previousValue) {
-      axios.get(`/api/translations/package?lang=${currentValue}&code=[
-"reg$email","reg$username","reg$password","reg$password_confirmation","reg$join_us","sign_up"]`)
+      axios.get(`/api/translations/page?lang=${currentValue}&prefix=reg`)
         .then((response) => {
           this.setState({
-            $email: response.data.data[0],
-            $username: response.data.data[1],
-            $password: response.data.data[2],
-            $password_confirmation: response.data.data[3],
-            $join_us: response.data.data[4],
-            $sign_up: response.data.data[5],
+            $email: response.data.data.reg$email,
+            $username: response.data.data.reg$username,
+            $password: response.data.data.reg$password,
+            $password_confirmation: response.data.data.reg$password_confirmation,
+            $join_us: response.data.data.reg$join_us,
             lang: currentValue,
           });
         })
