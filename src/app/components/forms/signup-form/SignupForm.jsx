@@ -41,11 +41,11 @@ export default class SignupForm extends React.Component {
     axios.get(`/api/translations/page?lang=${this.state.lang}&prefix=reg`)
       .then((response) => {
         this.setState({
-          $email: response.data.data.reg$email,
-          $username: response.data.data.reg$username,
-          $password: response.data.data.reg$password,
-          $password_confirmation: response.data.data.reg$password_confirmation,
-          $join_us: response.data.data.reg$join_us,
+          $email: response.data.data.email,
+          $username: response.data.data.username,
+          $password: response.data.data.password,
+          $password_confirmation: response.data.data.password_confirmation,
+          $join_us: response.data.data.join_us,
         });
       })
       .catch((error) => {
@@ -61,11 +61,11 @@ export default class SignupForm extends React.Component {
       axios.get(`/api/translations/page?lang=${currentValue}&prefix=reg`)
         .then((response) => {
           this.setState({
-            $email: response.data.data.reg$email,
-            $username: response.data.data.reg$username,
-            $password: response.data.data.reg$password,
-            $password_confirmation: response.data.data.reg$password_confirmation,
-            $join_us: response.data.data.reg$join_us,
+            $email: response.data.data.email,
+            $username: response.data.data.username,
+            $password: response.data.data.password,
+            $password_confirmation: response.data.data.password_confirmation,
+            $join_us: response.data.data.join_us,
             lang: currentValue,
           });
         })
