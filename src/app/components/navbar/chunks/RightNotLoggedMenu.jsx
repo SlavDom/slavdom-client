@@ -9,7 +9,7 @@ class RightNotLoggedMenu extends React.Component {
   constructor() {
     super();
     this.state = {
-      sign_in: 'Sign in',
+      $sign_in: 'Sign in',
     };
   }
 
@@ -48,7 +48,7 @@ class RightNotLoggedMenu extends React.Component {
           </ul>
         </li>
         <li><Link to="/signup">Sign up</Link></li>
-        <li><Link to="/signin">{this.state.sign_in}</Link></li>
+        <li><Link to="/signin">{this.state.$sign_in}</Link></li>
       </ul>
     );
   }
