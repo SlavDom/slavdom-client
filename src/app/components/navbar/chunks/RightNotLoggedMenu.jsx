@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import './RightMenu.css';
 import getLang from '../../../utils/languages';
 
 class RightNotLoggedMenu extends React.Component {
@@ -29,10 +30,14 @@ class RightNotLoggedMenu extends React.Component {
     }
   }
 
+  getClass(name) {
+    if (name === this.props.lang) {
+      return 'btn btn-primary';
+    }
+    return 'btn btn-default';
+  }
+
   render() {
-    const style = {
-      minWidth: '160px',
-    };
     return (
       <ul className="nav navbar-nav navbar-right">
         <li><Link to="">Forum</Link></li>
@@ -48,18 +53,39 @@ class RightNotLoggedMenu extends React.Component {
           </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li>
-              <button className="btn btn-default" style={style} onClick={this.props.toEnglish}>
-                English
+              <button className={this.getClass('en')} onClick={this.props.toEnglish}>
+                <div className="row">
+                  <div className="col-md-2">
+                    <img width="30px" src="/images/en_flag.svg" alt="English flag" />
+                  </div>
+                  <div className="col-md-8">
+                    English
+                  </div>
+                </div>
               </button>
             </li>
             <li>
-              <button className="btn btn-default" style={style} onClick={this.props.toNovoslovnica} >
-                Новословница
+              <button className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
+                <div className="row">
+                  <div className="col-md-2">
+                    <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
+                  </div>
+                  <div className="col-md-8">
+                   Новословница
+                  </div>
+                </div>
               </button>
             </li>
             <li>
-              <button className="btn btn-default" style={style} onClick={this.props.toInterslavic} >
-                Interslavic
+              <button className={this.getClass('is')} onClick={this.props.toInterslavic} >
+                <div className="row">
+                  <div className="col-md-2">
+                    <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
+                  </div>
+                  <div className="col-md-8">
+                   Interslavic
+                  </div>
+                </div>
               </button>
             </li>
           </ul>
