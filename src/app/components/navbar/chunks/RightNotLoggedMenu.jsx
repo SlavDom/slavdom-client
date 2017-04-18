@@ -52,7 +52,7 @@ class RightNotLoggedMenu extends React.Component {
             <span className="caret" />
           </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li className="myLi">
+            <li className="navbarLanguageChooseLi">
               <div className="row">
                 <div className="col-md-1 col-md-offset-1">
                   <img width="30px" src="/images/en_flag.svg" alt="English flag" />
@@ -64,7 +64,7 @@ class RightNotLoggedMenu extends React.Component {
                 </div>
               </div>
             </li>
-            <li className="myLi">
+            <li className="navbarLanguageChooseLi">
               <div className="row">
                 <div className="col-md-1 col-md-offset-1">
                   <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
@@ -76,7 +76,7 @@ class RightNotLoggedMenu extends React.Component {
                 </div>
               </div>
             </li>
-            <li className="myLi">
+            <li className="navbarLanguageChooseLi">
               <div className="row">
                 <div className="col-md-1 col-md-offset-1">
                   <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
