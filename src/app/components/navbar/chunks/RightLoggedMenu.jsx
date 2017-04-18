@@ -32,9 +32,9 @@ class RightLoggedMenu extends React.Component {
 
   getClass(name) {
     if (name === this.props.lang) {
-      return 'btn btn-primary';
+      return 'activeA';
     }
-    return 'btn btn-default';
+    return 'inactiveA';
   }
 
   logOut() {
@@ -55,41 +55,41 @@ class RightLoggedMenu extends React.Component {
             <span className="caret" />
           </a>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li>
-              <button className={this.getClass('en')} onClick={this.props.toEnglish}>
-                <div className="row">
-                  <div className="col-md-2">
-                    <img width="30px" src="/images/en_flag.svg" alt="English flag" />
-                  </div>
-                  <div className="col-md-8">
+            <li className="myLi">
+              <div className="row">
+                <div className="col-md-1 col-md-offset-1">
+                  <img width="30px" src="/images/en_flag.svg" alt="English flag" />
+                </div>
+                <div className="col-md-8 col-md-offset-1">
+                  <a tabIndex="-1" className={this.getClass('en')} onClick={this.props.toEnglish}>
                     English
-                  </div>
+                  </a>
                 </div>
-              </button>
+              </div>
             </li>
-            <li>
-              <button className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
-                <div className="row">
-                  <div className="col-md-2">
-                    <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
-                  </div>
-                  <div className="col-md-8">
+            <li className="myLi">
+              <div className="row">
+                <div className="col-md-1 col-md-offset-1">
+                  <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
+                </div>
+                <div className="col-md-8 col-md-offset-1">
+                  <a tabIndex="-1" className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
                     Новословница
-                  </div>
+                  </a>
                 </div>
-              </button>
+              </div>
             </li>
-            <li>
-              <button className={this.getClass('is')} onClick={this.props.toInterslavic} >
-                <div className="row">
-                  <div className="col-md-2">
-                    <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
-                  </div>
-                  <div className="col-md-8">
-                    Interslavic
-                  </div>
+            <li className="myLi">
+              <div className="row">
+                <div className="col-md-1 col-md-offset-1">
+                  <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
                 </div>
-              </button>
+                <div className="col-md-8 col-md-offset-1">
+                  <a tabIndex="-1" className={this.getClass('is')} onClick={this.props.toInterslavic} >
+                    Interslavic
+                  </a>
+                </div>
+              </div>
             </li>
           </ul>
         </li>

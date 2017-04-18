@@ -1,3 +1,15 @@
 .btn {
-    min-width: 160px
+    min-width: 180px
+}
+
+.myLi {
+    min-width: 180px;
+}
+
+.activeA {
+    color: red;
+}
+
+.inactiveA {
+    color: black;
 }
