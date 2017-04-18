@@ -1,4 +1,15 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import Home from './pages/home/Home';
+import About from './pages/about/About';
+import Contacts from './pages/contacts/Contacts';
+import NotFound from './pages/not-found/NotFound';
+import FAQ from './pages/faq/Faq';
+import Signin from './pages/signin/Signin';
+import Signup from './pages/signup/Signup';
+import News from './pages/news/News';
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import FlashMessagesList from './components/common/FlashMessagesList';
@@ -30,12 +41,23 @@ class App extends React.Component {
   }
 
   render() {
+    const { match } = this.props;
     return (
       <div className="wrapper">
         <NavBar />
         <FlashMessagesList />
         <div className="container-fluid">
-          {this.props.children}
+          <Switch>
+            <Route exact path={match.url} component={Home} />
+            <Route path={`${match.url}about`} component={About} />
+            <Route path={`${match.url}contacts`} component={Contacts} />
+            <Route path={`${match.url}faq`} component={FAQ} />
+            <Route path={`${match.url}signin`} component={Signin} />
+            <Route path={`${match.url}signup`} component={Signup} />
+            <Route exact path={`${match.url}news`} component={Home} />
+            <Route path={`${match.url}news/:theme`} component={News} />
+            <Route path="*" component={NotFound} />
+          </Switch>
         </div>
         <Footer />
       </div>
@@ -43,9 +65,8 @@ class App extends React.Component {
   }
 }
 
-
 App.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  match: PropTypes.shape([PropTypes.string]).isRequired,
 };
 
 export default App;

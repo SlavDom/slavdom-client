@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 class Home extends React.Component {
@@ -130,7 +131,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  lang: React.PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
@@ -205,8 +206,8 @@ export default class SignupForm extends React.Component {
 }
 
 SignupForm.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired,
-  isUserExists: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
+  userSignupRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
 };

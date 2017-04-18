@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import SignupForm from '../../components/forms/signup-form/SignupForm';
 import { userSignupRequest, isUserExists } from '../../actions/signupActions';
@@ -44,10 +45,10 @@ class Signup extends React.Component {
 }
 
 Signup.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired,
-  isUserExists: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
+  userSignupRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  isUserExists: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

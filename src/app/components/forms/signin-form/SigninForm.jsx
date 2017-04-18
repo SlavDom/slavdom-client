@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 
@@ -72,7 +72,7 @@ export default class SigninForm extends React.Component {
           text: 'You have not signed in. Try again!',
         });
       }
-      browserHistory.push('/');
+      // history.push('/');
     },
     ).catch(error => this.setState({
       errors: error.response.data,
@@ -127,7 +127,7 @@ export default class SigninForm extends React.Component {
 }
 
 SigninForm.propTypes = {
-  addFlashMessage: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  logIn: React.PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  logIn: PropTypes.func.isRequired,
 };

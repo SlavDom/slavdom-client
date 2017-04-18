@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import SigninForm from '../../components/forms/signin-form/SigninForm';
 import { addFlashMessage } from '../../actions/flashMessages';
 import { logIn } from '../../actions/loginStatus';
@@ -42,9 +44,9 @@ class Signin extends React.Component {
 }
 
 Signin.propTypes = {
-  addFlashMessage: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  logIn: React.PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  logIn: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

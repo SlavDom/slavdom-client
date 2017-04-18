@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import RightLoggedMenu from './chunks/RightLoggedMenu';
 import RightNotLoggedMenu from './chunks/RightNotLoggedMenu';
@@ -56,9 +57,9 @@ class Navbar extends React.Component {
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <Link to="/" className="navbar-brand" activeClassName="active">
+          <NavLink to="/" className="navbar-brand" activeClassName="active">
             <img src="/images/logo.png" alt="SlavDom" height="30px" />
-          </Link>
+          </NavLink>
         </div>
         <div className="navbar-collapse collapse" id="main-navbar">
           <LeftMenu />
@@ -83,12 +84,12 @@ class Navbar extends React.Component {
 }
 
 Navbar.propTypes = {
-  logged: React.PropTypes.bool.isRequired,
-  logOut: React.PropTypes.func.isRequired,
-  lang: React.PropTypes.string.isRequired,
-  toNovoslovnica: React.PropTypes.func.isRequired,
-  toEnglish: React.PropTypes.func.isRequired,
-  toInterslavic: React.PropTypes.func.isRequired,
+  logged: PropTypes.bool.isRequired,
+  logOut: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  toNovoslovnica: PropTypes.func.isRequired,
+  toEnglish: PropTypes.func.isRequired,
+  toInterslavic: PropTypes.func.isRequired,
 };
 
 

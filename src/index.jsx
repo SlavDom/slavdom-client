@@ -3,17 +3,18 @@ import 'bootstrap/dist/js/bootstrap';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import routes from './routes';
+import App from './app/App';
 import './index.css';
 import store from './store';
 
-
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <BrowserRouter>
+      <Route path="/" component={App} />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 );

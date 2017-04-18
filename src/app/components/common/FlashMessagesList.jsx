@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import FlashMessage from './FlashMessage';
@@ -15,8 +16,8 @@ class FlashMessagesList extends React.Component {
 }
 
 FlashMessagesList.propTypes = {
-  messages: React.PropTypes.arrayOf(React.PropTypes.objectOf(React.PropTypes.string)),
-  deleteFlashMessage: React.PropTypes.func,
+  messages: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  deleteFlashMessage: PropTypes.func,
 };
 
 FlashMessagesList.defaultProps = {

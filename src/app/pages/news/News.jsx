@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import './News.css';
 
 class News extends React.Component {
@@ -14,7 +16,7 @@ class News extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/news/get?lang=${this.state.lang}&theme=${this.props.params.theme}`)
+    axios.get(`/api/news/get?lang=${this.state.lang}&theme=${this.props.match.params.theme}`)
       .then((response) => {
         this.setState({
           news: response.data.data,
@@ -30,7 +32,7 @@ class News extends React.Component {
     const previousValue = this.state.lang;
     const currentValue = lang;
     if (currentValue !== previousValue) {
-      axios.get(`/api/news/get?lang=${currentValue}&theme=${this.props.params.theme}`)
+      axios.get(`/api/news/get?lang=${currentValue}&theme=${this.props.match.params.theme}`)
         .then((response) => {
           if (response !== null) {
             this.setState({
@@ -114,11 +116,13 @@ class News extends React.Component {
 }
 
 News.propTypes = {
-  lang: React.PropTypes.string.isRequired,
-  params: React.PropTypes.shape(React.PropTypes.string),
+  lang: PropTypes.string.isRequired,
+  match: PropTypes.shape(PropTypes.shape(PropTypes.string)),
+  params: PropTypes.shape(PropTypes.string),
 };
 
 News.defaultProps = {
+  match: {},
   params: {},
 };
 
