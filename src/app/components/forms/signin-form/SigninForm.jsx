@@ -72,7 +72,6 @@ export default class SigninForm extends React.Component {
           text: 'You have not signed in. Try again!',
         });
       }
-      // history.push('/');
     },
     ).catch(error => this.setState({
       errors: error.response.data,
