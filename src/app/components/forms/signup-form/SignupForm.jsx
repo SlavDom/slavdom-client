@@ -2,7 +2,6 @@ import React from 'react';
 import map from 'lodash/map';
 import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
-import { browserHistory } from 'react-router';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -79,6 +78,7 @@ export default class SignupForm extends React.Component {
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+      invalid: false,
     });
   }
 
@@ -96,12 +96,16 @@ export default class SignupForm extends React.Component {
             text: 'You signed up successfully. Welcome!',
           });
           this.setState({ isLoading: false });
-          browserHistory.push('/');
+          this.props.push('/');
         },
       ).catch(error => this.setState({
         errors: error.response.data,
         isLoading: false,
       }));
+    } else {
+      this.setState({
+        invalid: true,
+      });
     }
   }
 
@@ -210,4 +214,5 @@ SignupForm.propTypes = {
   addFlashMessage: PropTypes.func.isRequired,
   isUserExists: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
+  push: PropTypes.func.isRequired,
 };

@@ -9,9 +9,11 @@
 .activeA {
     color: black;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .inactiveA {
     color: black;
     font-weight: normal;
+    cursor: pointer;
 }
