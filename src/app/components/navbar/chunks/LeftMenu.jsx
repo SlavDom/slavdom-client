@@ -9,8 +9,8 @@ export default class LeftMenu extends React.Component {
     super();
     this.state = {
       $contact: '',
-      $faq: 'FAQ',
-      $about: 'About',
+      $faq: '',
+      $about: '',
     };
   }
 
@@ -19,6 +19,8 @@ export default class LeftMenu extends React.Component {
       .then((response) => {
         this.setState({
           $contact: response.data.data.contact,
+          $faq: response.data.data.faq,
+          $about: response.data.data.about,
         });
       })
       .catch((error) => {
@@ -32,6 +34,8 @@ export default class LeftMenu extends React.Component {
         .then((response) => {
           this.setState({
             $contact: response.data.data.contact,
+            $faq: response.data.data.faq,
+            $about: response.data.data.about,
           });
         })
         .catch((error) => {

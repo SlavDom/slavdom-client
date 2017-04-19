@@ -11,17 +11,32 @@ class RightNotLoggedMenu extends React.Component {
   constructor() {
     super();
     this.state = {
-      $sign_in: 'Sign in',
+      $sign_in: '',
+      $sign_up: '',
     };
+  }
+
+  componentDidMount() {
+    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=common`)
+      .then((response) => {
+        this.setState({
+          $sign_in: response.data.data.sign_in,
+          $sign_up: response.data.data.sign_up,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   componentWillReceiveProps(nextProps) {
     console.log(`${nextProps} is here`);
     if (this.props.lang !== nextProps.lang) {
-      axios.get(`/api/translations/package?lang=${nextProps.lang}&code=["sign_in"]`)
+      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=common`)
         .then((response) => {
           this.setState({
-            $sign_in: response.data.data[0],
+            $sign_in: response.data.data.sign_in,
+            $sign_up: response.data.data.sign_up,
           });
         })
         .catch((error) => {
@@ -90,7 +105,7 @@ class RightNotLoggedMenu extends React.Component {
             </li>
           </ul>
         </li>
-        <li><Link to="/signup">Sign up</Link></li>
+        <li><Link to="/signup">{this.state.$sign_up}</Link></li>
         <li><Link to="/signin">{this.state.$sign_in}</Link></li>
       </ul>
     );

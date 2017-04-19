@@ -11,12 +11,25 @@ class News extends React.Component {
     super(props, context);
     this.state = {
       news: null,
-      lang: props.lang,
+      $commentaries: '',
+      $author: '',
+      $category: '',
     };
   }
 
   componentDidMount() {
-    axios.get(`/api/news/get?lang=${this.state.lang}&theme=${this.props.match.params.theme}`)
+    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=news`)
+      .then((response) => {
+        this.setState({
+          $commentaries: response.data.data.commentary_pl,
+          $author: response.data.data.author,
+          $category: response.data.data.category,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios.get(`/api/news/get?lang=${this.props.lang}&theme=${this.props.match.params.theme}`)
       .then((response) => {
         this.setState({
           news: response.data.data,
@@ -28,21 +41,27 @@ class News extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { lang } = nextProps;
-    const previousValue = this.state.lang;
-    const currentValue = lang;
-    if (currentValue !== previousValue) {
-      axios.get(`/api/news/get?lang=${currentValue}&theme=${this.props.match.params.theme}`)
+    if (this.props.lang !== nextProps.lang) {
+      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=news`)
+        .then((response) => {
+          this.setState({
+            $commentaries: response.data.data.commentary_pl,
+            $author: response.data.data.author,
+            $category: response.data.data.category,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      axios.get(`/api/news/get?lang=${nextProps.lang}&theme=${this.props.match.params.theme}`)
         .then((response) => {
           if (response !== null) {
             this.setState({
               news: response.data.data,
-              lang: currentValue,
             });
           } else {
             this.setState({
               news: null,
-              lang: currentValue,
             });
           }
         })
@@ -75,13 +94,13 @@ class News extends React.Component {
           <div className="col-md-6">
             <ul>
               <li>
-                Category:
+                {this.state.$category}:
               </li>
               <li>
                 Date: {this.state.news.createdAt}
               </li>
               <li>
-                Author:
+                {this.state.$author}: someone
               </li>
               <li>
                 Views:
@@ -99,7 +118,7 @@ class News extends React.Component {
         <div className="row">
           <div className="col-md-offset-1 col-md-5">
             <h4>
-              Commentaries
+              {this.state.$commentaries}
             </h4>
             {newsCommentaries}
           </div>

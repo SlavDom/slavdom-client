@@ -23,7 +23,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=news`).then((response) => {
+    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=newslist`).then((response) => {
       this.setState({
         $next: response.data.data.next,
         $previous: response.data.data.previous,
@@ -44,7 +44,7 @@ class Home extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.lang !== nextProps.lang) {
-      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=news`).then((response) => {
+      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=newslist`).then((response) => {
         this.setState({
           $next: response.data.data.next,
           $previous: response.data.data.previous,
