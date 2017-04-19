@@ -13,10 +13,13 @@ export default class ContactForm extends React.Component {
       email: '',
       theme: '',
       message: '',
-      lang: props.lang,
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
   }
 
   onSubmit(event) {
@@ -41,7 +44,7 @@ export default class ContactForm extends React.Component {
       <form onSubmit={this.onSubmit}>
 
         <TextFieldGroup
-          label={'Email'}
+          label={this.props.email}
           onChange={this.onChange}
           value={this.state.email}
           field="email"
@@ -49,14 +52,14 @@ export default class ContactForm extends React.Component {
         />
 
         <TextFieldGroup
-          label={'Theme'}
+          label={this.props.theme}
           onChange={this.onChange}
           value={this.state.theme}
           field="theme"
         />
 
         <div className="form-group">
-          <label className="control-label" htmlFor="contact message">Message</label>
+          <label className="control-label" htmlFor="contact message">{this.props.message}</label>
           <textarea
             id="contact_message"
             value={this.state.message}
@@ -69,7 +72,7 @@ export default class ContactForm extends React.Component {
         <div className="form-group">
           <button
             className="btn btn-primary btn-lg"
-          >Send</button>
+          >{this.props.send}</button>
         </div>
       </form>
     );
@@ -77,5 +80,8 @@ export default class ContactForm extends React.Component {
 }
 
 ContactForm.propTypes = {
-  lang: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  theme: PropTypes.string.isRequired,
+  send: PropTypes.string.isRequired,
 };

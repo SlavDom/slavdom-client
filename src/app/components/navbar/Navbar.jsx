@@ -62,7 +62,9 @@ class Navbar extends React.Component {
           </NavLink>
         </div>
         <div className="navbar-collapse collapse" id="main-navbar">
-          <LeftMenu />
+          <LeftMenu
+            lang={this.state.lang}
+          />
           {this.state.logged
               ? <RightLoggedMenu
                 lang={this.state.lang}

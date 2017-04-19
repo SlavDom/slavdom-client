@@ -11,17 +11,26 @@ class Home extends React.Component {
     super(props, context);
     this.state = {
       newsList: [],
-      lang: props.lang,
       page: 1,
       length: 5,
       amount: 0,
+      $next: '',
+      $previous: '',
+      $read_more: '',
     };
     this.getNextPage = this.getNextPage.bind(this);
     this.getPrevPage = this.getPrevPage.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`/api/news/list?lang=${this.state.lang}&page=${this.state.page}&amount=${this.state.length}`)
+    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=news`).then((response) => {
+      this.setState({
+        $next: response.data.data.next,
+        $previous: response.data.data.previous,
+        $read_more: response.data.data.read_more,
+      });
+    });
+    axios.get(`/api/news/list?lang=${this.props.lang}&page=${this.state.page}&amount=${this.state.length}`)
       .then((response) => {
         this.setState({
           newsList: response.data.data,
@@ -34,15 +43,18 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { lang } = nextProps;
-    const previousValue = this.state.lang;
-    const currentValue = lang;
-    if (currentValue !== previousValue) {
-      axios.get(`/api/news/list?lang=${currentValue}&page=${this.state.page}&amount=${this.state.length}`)
+    if (this.props.lang !== nextProps.lang) {
+      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=news`).then((response) => {
+        this.setState({
+          $next: response.data.data.next,
+          $previous: response.data.data.previous,
+          $read_more: response.data.data.read_more,
+        });
+      });
+      axios.get(`/api/news/list?lang=${nextProps.lang}&page=${this.state.page}&amount=${this.state.length}`)
         .then((response) => {
           this.setState({
             newsList: response.data.data,
-            lang: currentValue,
             amount: response.data.amount,
           });
         })
@@ -53,7 +65,7 @@ class Home extends React.Component {
   }
 
   getNextPage() {
-    axios.get(`/api/news/list?lang=${this.state.lang}&page=${this.state.page + 1}&amount=${this.state.length}`)
+    axios.get(`/api/news/list?lang=${this.props.lang}&page=${this.state.page + 1}&amount=${this.state.length}`)
       .then((response) => {
         this.setState({
           newsList: response.data.data,
@@ -67,7 +79,7 @@ class Home extends React.Component {
   }
 
   getPrevPage() {
-    axios.get(`/api/news/list?lang=${this.state.lang}&page=${this.state.page - 1}&amount=${this.state.length}`)
+    axios.get(`/api/news/list?lang=${this.props.lang}&page=${this.state.page - 1}&amount=${this.state.length}`)
       .then((response) => {
         this.setState({
           newsList: response.data.data,
@@ -99,20 +111,20 @@ class Home extends React.Component {
               <h2>{item.title}</h2>
               <hr />
               <div><p>{item.shortText}</p></div>
-              <Link className="btn btn-primary" to={`/news/${item.theme}`}>Read more</Link>
+              <Link className="btn btn-primary" to={`/news/${item.theme}`}>{this.state.$read_more}</Link>
             </div>
           </div>
         </div>);
     }
     if (this.state.page > 1) {
       prevButton = (<button className="btn btn-primary" id="prevButton" onClick={this.getPrevPage}>
-          Previous
-        </button>);
+        {this.state.$previous}
+      </button>);
     }
     if (this.state.amount - (this.state.page * this.state.length) > 0) {
       nextButton = (<button className="btn btn-primary" id="nextButton" onClick={this.getNextPage}>
-          Next
-        </button>);
+        {this.state.$next}
+      </button>);
     }
     return (
       <div>
