@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import getLang from '../../../utils/languages';
+import NavbarLanguageChooser from './NavbarLanguageChooser';
 import './RightMenu.css';
 
 class RightLoggedMenu extends React.Component {
@@ -30,13 +30,6 @@ class RightLoggedMenu extends React.Component {
     }
   }
 
-  getClass(name) {
-    if (name === this.props.lang) {
-      return 'activeA';
-    }
-    return 'inactiveA';
-  }
-
   logOut() {
     this.props.logOut();
   }
@@ -44,55 +37,12 @@ class RightLoggedMenu extends React.Component {
   render() {
     return (
       <ul className="nav navbar-nav navbar-right">
-        <li className="dropdown">
-          <a
-            href=""
-            className="dropdown-toggle"
-            type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="true"
-          >
-            {getLang(this.props.lang)}
-            <span className="caret" />
-          </a>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li className="navbarLanguageChooseLi">
-              <div className="row">
-                <div className="col-md-1 col-md-offset-1">
-                  <img width="30px" src="/images/en_flag.svg" alt="English flag" />
-                </div>
-                <div className="col-md-8 col-md-offset-1">
-                  <a tabIndex="-1" className={this.getClass('en')} onClick={this.props.toEnglish}>
-                    English
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li className="navbarLanguageChooseLi">
-              <div className="row">
-                <div className="col-md-1 col-md-offset-1">
-                  <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
-                </div>
-                <div className="col-md-8 col-md-offset-1">
-                  <a tabIndex="-1" className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
-                    Новословница
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li className="navbarLanguageChooseLi">
-              <div className="row">
-                <div className="col-md-1 col-md-offset-1">
-                  <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
-                </div>
-                <div className="col-md-8 col-md-offset-1">
-                  <a tabIndex="-1" className={this.getClass('is')} onClick={this.props.toInterslavic} >
-                    Interslavic
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
+        <NavbarLanguageChooser
+          toEnglish={this.props.toEnglish}
+          toInterslavic={this.props.toInterslavic}
+          toNovoslovnica={this.props.toNovoslovnica}
+          lang={this.props.lang}
+        />
         <li><Link onClick={this.logOut} to="">{this.state.$sign_out}</Link></li>
       </ul>
     );

@@ -56,7 +56,7 @@ class Contacts extends React.Component {
     return (
       <div className="container-fluid">
         <h2>{this.state.$contact}</h2>
-        <div>
+        <div className="col-md-4 col-md-offset-4">
           <ContactForm
             email={this.state.$email}
             theme={this.state.$theme}
