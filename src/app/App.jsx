@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Home from './pages/home/Home';
 import About from './pages/about/About';
-import Contacts from './pages/contacts/Contacts';
 import NotFound from './pages/not-found/NotFound';
 import FAQ from './pages/faq/Faq';
 import Signin from './pages/signin/Signin';
@@ -50,7 +49,6 @@ class App extends React.Component {
           <Switch>
             <Route exact path={match.url} component={Home} />
             <Route path={`${match.url}about`} component={About} />
-            <Route path={`${match.url}contacts`} component={Contacts} />
             <Route path={`${match.url}faq`} component={FAQ} />
             <Route path={`${match.url}signin`} component={Signin} />
             <Route path={`${match.url}signup`} component={Signup} />

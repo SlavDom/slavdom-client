@@ -47,7 +47,6 @@ export default class LeftMenu extends React.Component {
   render() {
     return (
       <ul className="nav navbar-nav">
-        <li><Link to="/contacts">{this.state.$contact}</Link></li>
         <li><Link to="/faq">{this.state.$faq}</Link></li>
         <li><Link to="/about">{this.state.$about}</Link></li>
       </ul>
