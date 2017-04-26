@@ -15,7 +15,6 @@ export default class SignupForm extends React.Component {
     super(props);
 
     this.state = {
-      usernameIsTouched: false,
       username: '',
       email: '',
       password: '',
