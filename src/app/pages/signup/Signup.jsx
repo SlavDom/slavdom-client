@@ -33,7 +33,6 @@ class Signup extends React.Component {
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
           <SignupForm
-            push={this.props.history.push}
             userSignupRequest={userSignupRequest}
             addFlashMessage={addFlashMessage}
             isUsernameExists={isUsernameExists}
@@ -52,8 +51,6 @@ Signup.propTypes = {
   isUsernameExists: PropTypes.func.isRequired,
   isEmailExists: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
-  history: PropTypes.shape(PropTypes.func).isRequired,
-  push: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

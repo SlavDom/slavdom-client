@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
@@ -23,6 +24,7 @@ export default class SignupForm extends React.Component {
       errors: {},
       isLoading: false,
       invalid: false,
+      isRedirect: false,
       lang: props.lang,
       $email: '',
       $username: '',
@@ -94,8 +96,7 @@ export default class SignupForm extends React.Component {
             type: 'success',
             text: 'You signed up successfully. Welcome!',
           });
-          this.setState({ isLoading: false });
-          this.props.push('/');
+          this.setState({ isLoading: false, isRedirect: true });
         },
       ).catch(error => this.setState({
         errors: error.response.data,
@@ -149,8 +150,15 @@ export default class SignupForm extends React.Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const redirectDestination = { pathname: '/' };
+    const { errors, isRedirect } = this.state;
     const timezoneOptions = map(timezones, (value, key) => <option key={value} value={value}>{key}</option>);
+
+    if (isRedirect) {
+      return (
+        <Redirect to={redirectDestination} />
+      );
+    }
 
     return (
       <form onSubmit={this.onSubmit}>
@@ -226,5 +234,4 @@ SignupForm.propTypes = {
   isUsernameExists: PropTypes.func.isRequired,
   isEmailExists: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
-  push: PropTypes.func.isRequired,
 };
