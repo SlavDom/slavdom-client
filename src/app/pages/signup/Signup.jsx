@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import SignupForm from '../../components/forms/signup-form/SignupForm';
-import { userSignupRequest, isUserExists } from '../../actions/signupActions';
+import { userSignupRequest, isUsernameExists, isEmailExists } from '../../actions/signupActions';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 class Signup extends React.Component {
@@ -28,7 +28,7 @@ class Signup extends React.Component {
   }
 
   render() {
-    const { userSignupRequest, addFlashMessage, isUserExists } = this.props;
+    const { userSignupRequest, addFlashMessage, isUsernameExists, isEmailExists } = this.props;
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
@@ -36,7 +36,8 @@ class Signup extends React.Component {
             push={this.props.history.push}
             userSignupRequest={userSignupRequest}
             addFlashMessage={addFlashMessage}
-            isUserExists={isUserExists}
+            isUsernameExists={isUsernameExists}
+            isEmailExists={isEmailExists}
             lang={this.state.lang}
           />
         </div>
@@ -48,7 +49,8 @@ class Signup extends React.Component {
 Signup.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired,
+  isUsernameExists: PropTypes.func.isRequired,
+  isEmailExists: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
   history: PropTypes.shape(PropTypes.func).isRequired,
   push: PropTypes.func.isRequired,
@@ -60,4 +62,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { userSignupRequest, addFlashMessage, isUserExists })(Signup);
+export default connect(
+  mapStateToProps,
+  { userSignupRequest, addFlashMessage, isUsernameExists, isEmailExists },
+)(Signup);

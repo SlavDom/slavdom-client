@@ -112,15 +112,27 @@ export default class SignupForm extends React.Component {
     const field = event.target.name;
     const value = event.target.value;
     if (value !== '') {
-      this.props.isUserExists(value).then((res) => {
-        const errors = this.state.errors;
-        if (res.data.user) {
-          errors[field] = `There is user with such ${field}`;
-        } else {
-          delete errors[field];
-        }
-        this.setState({ errors, invalid: !isEmpty(errors) });
-      });
+      if (field === 'username') {
+        this.props.isUsernameExists(value).then((res) => {
+          const errors = this.state.errors;
+          if (res.data.user) {
+            errors[field] = `There is user with such ${field}`;
+          } else {
+            delete errors[field];
+          }
+          this.setState({ errors, invalid: !isEmpty(errors) });
+        });
+      } else if (field === 'email') {
+        this.props.isEmailExists(value).then((res) => {
+          const errors = this.state.errors;
+          if (res.data.user) {
+            errors[field] = `There is user with such ${field}`;
+          } else {
+            delete errors[field];
+          }
+          this.setState({ errors, invalid: !isEmpty(errors) });
+        });
+      }
     } else {
       const errors = this.state.errors;
       errors[field] = '';
@@ -211,7 +223,8 @@ export default class SignupForm extends React.Component {
 SignupForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired,
+  isUsernameExists: PropTypes.func.isRequired,
+  isEmailExists: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
   push: PropTypes.func.isRequired,
 };

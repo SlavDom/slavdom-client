@@ -30,7 +30,6 @@ class RightNotLoggedMenu extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(`${nextProps} is here`);
     if (this.props.lang !== nextProps.lang) {
       axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=common`)
         .then((response) => {
