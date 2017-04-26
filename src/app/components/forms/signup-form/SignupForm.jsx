@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
-import validateInput from '../../../validations/signup';
+import signupValidation from '../../../../../../build/server/shared/signup';
 
 export default class SignupForm extends React.Component {
 
@@ -129,7 +129,7 @@ export default class SignupForm extends React.Component {
   }
 
   isValid() {
-    const { errors, isValid } = validateInput(this.state);
+    const { errors, isValid } = signupValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
