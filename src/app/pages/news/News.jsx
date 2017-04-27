@@ -18,21 +18,15 @@ class News extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=news`)
+    axios.get(`/api/dispatch/news_translations?lang=${this.props.lang}
+&prefix=news&theme=${this.props.match.params.theme}`)
       .then((response) => {
+        console.log(response);
         this.setState({
-          $commentaries: response.data.data.commentary_pl,
-          $author: response.data.data.author,
-          $category: response.data.data.category,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axios.get(`/api/news/get?lang=${this.props.lang}&theme=${this.props.match.params.theme}`)
-      .then((response) => {
-        this.setState({
-          news: response.data.data,
+          $commentaries: response.data.translations.commentary_pl,
+          $author: response.data.translations.author,
+          $category: response.data.translations.category,
+          news: response.data.news,
         });
       })
       .catch((error) => {
@@ -42,28 +36,16 @@ class News extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.lang !== nextProps.lang) {
-      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=news`)
+      axios.get(`/api/dispatch/news_translations?lang=${nextProps.lang}
+&prefix=news&theme=${this.props.match.params.theme}`)
         .then((response) => {
+          console.log(response);
           this.setState({
-            $commentaries: response.data.data.commentary_pl,
-            $author: response.data.data.author,
-            $category: response.data.data.category,
+            $commentaries: response.data.translations.commentary_pl,
+            $author: response.data.translations.author,
+            $category: response.data.translations.category,
+            news: response.data.news,
           });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      axios.get(`/api/news/get?lang=${nextProps.lang}&theme=${this.props.match.params.theme}`)
-        .then((response) => {
-          if (response !== null) {
-            this.setState({
-              news: response.data.data,
-            });
-          } else {
-            this.setState({
-              news: null,
-            });
-          }
         })
         .catch((error) => {
           console.log(error);
