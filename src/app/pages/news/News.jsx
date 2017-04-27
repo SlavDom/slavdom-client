@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 
 import './News.css';
 
+import Commentary from '../../components/commentary/Commentary';
+
 class News extends React.Component {
 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      news: null,
+      news: undefined,
       $commentaries: '',
       $author: '',
       $category: '',
@@ -21,7 +23,6 @@ class News extends React.Component {
     axios.get(`/api/dispatch/news_translations?lang=${this.props.lang}
 &prefix=news&theme=${this.props.match.params.theme}`)
       .then((response) => {
-        console.log(response);
         this.setState({
           $commentaries: response.data.translations.commentary_pl,
           $author: response.data.translations.author,
@@ -39,7 +40,6 @@ class News extends React.Component {
       axios.get(`/api/dispatch/news_translations?lang=${nextProps.lang}
 &prefix=news&theme=${this.props.match.params.theme}`)
         .then((response) => {
-          console.log(response);
           this.setState({
             $commentaries: response.data.translations.commentary_pl,
             $author: response.data.translations.author,
@@ -54,12 +54,16 @@ class News extends React.Component {
   }
 
   render() {
-    let newsPage = null;
-    let newsCommentaries = null;
-    if (this.state.news !== null) {
+    let newsPage;
+    let newsCommentaries;
+    if (this.state.news !== undefined) {
       if (this.state.news.commentaries.length > 0) {
+        const commentaryList = [];
+        for (let i = 0; i < this.state.news.commentaries.length; i += 1) {
+          commentaryList.push(<Commentary commentary={this.state.news.commentaries[i]} />);
+        }
         newsCommentaries = (<div>
-          There is some commentaries on this news.
+          {commentaryList}
         </div>);
       } else {
         newsCommentaries = (<div>
@@ -98,7 +102,7 @@ class News extends React.Component {
         </div>
         <hr />
         <div className="row">
-          <div className="col-md-offset-1 col-md-5">
+          <div className="col-md-12">
             <h4>
               {this.state.$commentaries}
             </h4>
