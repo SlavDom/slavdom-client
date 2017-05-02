@@ -68,7 +68,7 @@ class SigninForm extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.login(this.state)
         .then(() => this.setState({ isRedirect: true }))
-        .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
+        .catch(err => this.setState({ errors: err.response.data.errors, isLoading: false }));
     }
   }
 
@@ -101,6 +101,8 @@ class SigninForm extends React.Component {
         <h2>{this.state.$sign_in}</h2>
         <form onSubmit={this.onSubmit}>
           <h1>{this.state.$join_us}</h1>
+
+          { errors.form && <div className="alert alert-danger">{ errors.form }</div> }
 
           <TextFieldGroup
             field="identifier"
