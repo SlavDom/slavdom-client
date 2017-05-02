@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
+import signinValidation from '../../../../../../build/server/shared/signin';
+import login from '../../../actions/login';
 
-export default class SigninForm extends React.Component {
+class SigninForm extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      identifier: '',
       password: '',
       errors: {},
+      isLoading: false,
+      isRedirect: false,
       lang: props.lang,
       $username: '',
       $password: '',
+      $email: '',
       $sign_in: 'Sign in',
     };
     this.onSubmit = this.onSubmit.bind(this);
@@ -28,6 +35,7 @@ export default class SigninForm extends React.Component {
         this.setState({
           $username: response.data.data.username,
           $password: response.data.data.password,
+          $email: response.data.data.email,
         });
       })
       .catch((error) => {
@@ -55,27 +63,13 @@ export default class SigninForm extends React.Component {
   }
 
   onSubmit(event) {
-    this.props.logIn();
     event.preventDefault();
-    axios.post('/api/users/login', {
-      username: this.state.username,
-      password: this.state.password,
-    }).then((response) => {
-      if (response) {
-        this.props.addFlashMessage({
-          type: 'success',
-          text: 'You signed in successfully. Welcome!',
-        });
-      } else {
-        this.props.addFlashMessage({
-          type: 'failure',
-          text: 'You have not signed in. Try again!',
-        });
-      }
-    },
-    ).catch(error => this.setState({
-      errors: error.response.data,
-    }));
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.login(this.state)
+        .then(() => this.setState({ isRedirect: true }))
+        .catch(err => this.setState({ errors: err.response.data, isLoading: false }));
+    }
   }
 
   onChange(event) {
@@ -84,39 +78,51 @@ export default class SigninForm extends React.Component {
     });
   }
 
+  isValid() {
+    const { errors, isValid } = signinValidation(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
+
   render() {
-    const { errors } = this.state;
+    const { errors, isRedirect } = this.state;
+    const redirectDestination = { pathname: '/' };
+
+    if (isRedirect) {
+      return (
+        <Redirect to={redirectDestination} />
+      );
+    }
 
     return (
       <div>
-        <h2>
-          { this.state.$sign_in }
-        </h2>
+        <h2>{this.state.$sign_in}</h2>
         <form onSubmit={this.onSubmit}>
           <h1>{this.state.$join_us}</h1>
 
           <TextFieldGroup
-            error={errors.username}
-            label={this.state.$username}
+            field="identifier"
+            label={`${this.state.$username} / ${this.state.$email}`}
+            value={this.state.identifier}
+            error={errors.identifier}
             onChange={this.onChange}
-            checkUserExists={this.checkUserExists}
-            value={this.state.username}
-            field="username"
           />
 
           <TextFieldGroup
-            error={errors.password}
-            label={this.state.$password}
-            onChange={this.onChange}
-            value={this.state.password}
             field="password"
+            label={this.state.$password}
+            value={this.state.password}
+            error={errors.password}
+            onChange={this.onChange}
             type="password"
           />
 
           <div className="form-group">
             <button
               className="btn btn-primary btn-lg"
-              disabled={this.state.isLoading || this.state.invalid}
+              disabled={this.state.isLoading}
             >{this.state.$sign_in}</button>
           </div>
         </form>
@@ -126,7 +132,8 @@ export default class SigninForm extends React.Component {
 }
 
 SigninForm.propTypes = {
-  addFlashMessage: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
-  logIn: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
+
+export default connect(null, { login })(SigninForm);
