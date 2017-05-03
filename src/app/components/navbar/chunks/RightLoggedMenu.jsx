@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,23 +12,9 @@ class RightLoggedMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      $log_out: 'Logout',
+      $sign_out: 'Sign out',
     };
     this.logout = this.logout.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.lang !== nextProps.lang) {
-      axios.get(`/api/translations/package?lang=${nextProps.lang}&code=["sign_in"]`)
-        .then((response) => {
-          this.setState({
-            sign_in: response.data.data[0],
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
   }
 
   logout(event) {
@@ -46,7 +31,7 @@ class RightLoggedMenu extends React.Component {
           toNovoslovnica={this.props.toNovoslovnica}
           lang={this.props.lang}
         />
-        <li><Link onClick={this.logout} to="">{this.state.$log_out}</Link></li>
+        <li><Link onClick={this.logout} to="">{this.state.$sign_out}</Link></li>
       </ul>
     );
   }
