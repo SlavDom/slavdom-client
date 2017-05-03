@@ -14,7 +14,6 @@ class Navbar extends React.Component {
     super(props);
     this.state = {
       lang: props.lang,
-      logged: false,
     };
   }
 
@@ -31,6 +30,7 @@ class Navbar extends React.Component {
 
   render() {
     const { toEnglish, toInterslavic, toNovoslovnica } = this.props;
+    const { isAuthenticated } = this.props.auth;
     return (
       <nav className="navbar navbar-inverse navbar-static-top">
         <div className="container-fluid" />
@@ -55,7 +55,7 @@ class Navbar extends React.Component {
           <LeftMenu
             lang={this.state.lang}
           />
-          {this.state.logged
+          {isAuthenticated
               ? <RightLoggedMenu
                 lang={this.state.lang}
                 toNovoslovnica={toNovoslovnica}
@@ -76,6 +76,14 @@ class Navbar extends React.Component {
 
 Navbar.propTypes = {
   lang: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+    user: PropTypes.shape({
+      id: PropTypes.string,
+      username: PropTypes.string,
+      iat: PropTypes.number,
+    }),
+  }).isRequired,
   toNovoslovnica: PropTypes.func.isRequired,
   toEnglish: PropTypes.func.isRequired,
   toInterslavic: PropTypes.func.isRequired,
@@ -85,6 +93,7 @@ Navbar.propTypes = {
 function mapStateToProps(state) {
   return {
     lang: state.languageChooser,
+    auth: state.auth,
   };
 }
 

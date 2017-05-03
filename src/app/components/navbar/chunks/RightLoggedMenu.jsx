@@ -2,17 +2,20 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import NavbarLanguageChooser from './NavbarLanguageChooser';
 import './RightMenu.css';
+import NavbarLanguageChooser from './NavbarLanguageChooser';
+import { logout } from '../../../actions/authActions';
 
 class RightLoggedMenu extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      $sign_out: 'Sign out',
+      $log_out: 'Logout',
     };
+    this.logout = this.logout.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,6 +32,11 @@ class RightLoggedMenu extends React.Component {
     }
   }
 
+  logout(event) {
+    event.preventDefault();
+    this.props.logout();
+  }
+
   render() {
     return (
       <ul className="nav navbar-nav navbar-right">
@@ -38,7 +46,7 @@ class RightLoggedMenu extends React.Component {
           toNovoslovnica={this.props.toNovoslovnica}
           lang={this.props.lang}
         />
-        <li><Link to="">{this.state.$sign_out}</Link></li>
+        <li><Link onClick={this.logout} to="">{this.state.$log_out}</Link></li>
       </ul>
     );
   }
@@ -46,9 +54,10 @@ class RightLoggedMenu extends React.Component {
 
 RightLoggedMenu.propTypes = {
   lang: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired,
   toEnglish: PropTypes.func.isRequired,
   toNovoslovnica: PropTypes.func.isRequired,
   toInterslavic: PropTypes.func.isRequired,
 };
 
-export default RightLoggedMenu;
+export default connect(null, { logout })(RightLoggedMenu);

@@ -19,3 +19,11 @@ export function login(data) {
     dispatch(setCurrentUser(jwtDecode(token)));
   });
 }
+
+export function logout() {
+  return (dispatch) => {
+    localStorage.removeItem('jwtToken');
+    setAuthorizationToken(false);
+    dispatch(setCurrentUser({}));
+  };
+}
