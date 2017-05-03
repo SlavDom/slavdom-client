@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
+import '../Forms.css';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import signinValidation from '../../../../../../build/server/shared/signin';
 
