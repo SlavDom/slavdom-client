@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import './Home.css';
 
 class Home extends React.Component {
@@ -100,7 +102,7 @@ class Home extends React.Component {
       newsList = <div>There is no news yet</div>;
     } else {
       newsList = this.state.newsList.map(item =>
-        <div className="jumbotron">
+        <div key={shortid.generate()} className="jumbotron">
           <div className="row">
             <div className="col-md-3">
               <Link to="" className="thumbnail">
