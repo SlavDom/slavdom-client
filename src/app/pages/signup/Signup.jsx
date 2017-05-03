@@ -59,7 +59,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { userSignupRequest, addFlashMessage, isUsernameExists, isEmailExists },
-)(Signup);
+export default connect(mapStateToProps, {
+  userSignupRequest,
+  addFlashMessage,
+  isUsernameExists,
+  isEmailExists,
+})(Signup);

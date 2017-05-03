@@ -13,7 +13,6 @@ class RightLoggedMenu extends React.Component {
     this.state = {
       $sign_out: 'Sign out',
     };
-    this.logOut = this.logOut.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,10 +29,6 @@ class RightLoggedMenu extends React.Component {
     }
   }
 
-  logOut() {
-    this.props.logOut();
-  }
-
   render() {
     return (
       <ul className="nav navbar-nav navbar-right">
@@ -43,7 +38,7 @@ class RightLoggedMenu extends React.Component {
           toNovoslovnica={this.props.toNovoslovnica}
           lang={this.props.lang}
         />
-        <li><Link onClick={this.logOut} to="">{this.state.$sign_out}</Link></li>
+        <li><Link to="">{this.state.$sign_out}</Link></li>
       </ul>
     );
   }
@@ -54,7 +49,6 @@ RightLoggedMenu.propTypes = {
   toEnglish: PropTypes.func.isRequired,
   toNovoslovnica: PropTypes.func.isRequired,
   toInterslavic: PropTypes.func.isRequired,
-  logOut: PropTypes.func.isRequired,
 };
 
 export default RightLoggedMenu;

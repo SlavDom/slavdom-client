@@ -7,7 +7,6 @@ import RightLoggedMenu from './chunks/RightLoggedMenu';
 import RightNotLoggedMenu from './chunks/RightNotLoggedMenu';
 import LeftMenu from './chunks/LeftMenu';
 import { toEnglish, toInterslavic, toNovoslovnica } from '../../actions/languageChoice';
-import { logOut } from '../../actions/loginStatus';
 
 class Navbar extends React.Component {
 
@@ -15,7 +14,7 @@ class Navbar extends React.Component {
     super(props);
     this.state = {
       lang: props.lang,
-      logged: props.logged,
+      logged: false,
     };
   }
 
@@ -28,19 +27,10 @@ class Navbar extends React.Component {
         lang: currentValueLang,
       });
     }
-
-    const { logged } = nextProps;
-    const previousValueLogged = this.state.logged;
-    const currentValueLogged = logged;
-    if (currentValueLogged !== previousValueLogged) {
-      this.setState({
-        logged: currentValueLogged,
-      });
-    }
   }
 
   render() {
-    const { toEnglish, toInterslavic, toNovoslovnica, logOut } = this.props;
+    const { toEnglish, toInterslavic, toNovoslovnica } = this.props;
     return (
       <nav className="navbar navbar-inverse navbar-static-top">
         <div className="container-fluid" />
@@ -68,7 +58,6 @@ class Navbar extends React.Component {
           {this.state.logged
               ? <RightLoggedMenu
                 lang={this.state.lang}
-                logOut={logOut}
                 toNovoslovnica={toNovoslovnica}
                 toEnglish={toEnglish}
                 toInterslavic={toInterslavic}
@@ -86,8 +75,6 @@ class Navbar extends React.Component {
 }
 
 Navbar.propTypes = {
-  logged: PropTypes.bool.isRequired,
-  logOut: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
   toNovoslovnica: PropTypes.func.isRequired,
   toEnglish: PropTypes.func.isRequired,
@@ -98,14 +85,11 @@ Navbar.propTypes = {
 function mapStateToProps(state) {
   return {
     lang: state.languageChooser,
-    logged: state.loginChanger,
   };
 }
 
-export default connect(mapStateToProps,
-  {
-    toNovoslovnica,
-    toEnglish,
-    toInterslavic,
-    logOut,
-  })(Navbar);
+export default connect(mapStateToProps, {
+  toNovoslovnica,
+  toEnglish,
+  toInterslavic,
+})(Navbar);

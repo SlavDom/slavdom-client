@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import SigninForm from '../../components/forms/signin-form/SigninForm';
 import { addFlashMessage } from '../../actions/flashMessages';
-import { logIn } from '../../actions/loginStatus';
+import { login } from '../../actions/authActions';
 
 class Signin extends React.Component {
 
@@ -28,14 +28,14 @@ class Signin extends React.Component {
   }
 
   render() {
-    const { addFlashMessage, logIn } = this.props;
+    const { addFlashMessage, login } = this.props;
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
           <SigninForm
             addFlashMessage={addFlashMessage}
             lang={this.state.lang}
-            logIn={logIn}
+            login={login}
           />
         </div>
       </div>
@@ -46,7 +46,7 @@ class Signin extends React.Component {
 Signin.propTypes = {
   addFlashMessage: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
-  logIn: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -57,5 +57,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   addFlashMessage,
-  logIn,
+  login,
 })(Signin);

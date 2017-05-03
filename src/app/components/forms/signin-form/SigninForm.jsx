@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import signinValidation from '../../../../../../build/server/shared/signin';
-import login from '../../../actions/authActions';
 
-class SigninForm extends React.Component {
+export default class SigninForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -137,5 +135,3 @@ SigninForm.propTypes = {
   lang: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
 };
-
-export default connect(null, { login })(SigninForm);
