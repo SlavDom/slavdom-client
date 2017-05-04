@@ -11,6 +11,7 @@ import Signup from './pages/signup/Signup';
 import News from './pages/news/News';
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
+import Profile from './pages/profile/Profile';
 import FlashMessagesList from './components/common/FlashMessagesList';
 import './App.css';
 
@@ -54,6 +55,7 @@ class App extends React.Component {
             <Route path={`${match.url}signup`} component={Signup} />
             <Route exact path={`${match.url}news`} component={Home} />
             <Route path={`${match.url}news/:theme`} component={News} />
+            <Route path={`${match.url}users/:login`} component={Profile} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>

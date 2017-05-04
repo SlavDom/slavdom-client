@@ -25,6 +25,7 @@ class RightLoggedMenu extends React.Component {
   render() {
     return (
       <ul className="nav navbar-nav navbar-right">
+        <li><Link to="/users/me">Profile</Link></li>
         <NavbarLanguageChooser
           toEnglish={this.props.toEnglish}
           toInterslavic={this.props.toInterslavic}
