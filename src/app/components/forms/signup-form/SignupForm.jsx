@@ -1,12 +1,12 @@
 import React from 'react';
 import map from 'lodash/map';
-import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import every from 'lodash/every';
+import isUndefined from 'lodash/isUndefined';
 import { Redirect } from 'react-router-dom';
 
-import '../Forms.css';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
 import signupValidation from '../../../../../../build/server/shared/signup';
@@ -22,7 +22,13 @@ export default class SignupForm extends React.Component {
       password: '',
       passwordConfirmation: '',
       timezone: '',
-      errors: {},
+      errors: {
+        username: undefined,
+        email: undefined,
+        password: undefined,
+        passwordConfirmation: undefined,
+        timezone: undefined,
+      },
       isLoading: false,
       invalid: false,
       isRedirect: false,
@@ -33,10 +39,18 @@ export default class SignupForm extends React.Component {
       $password_confirmation: '',
       $join_us: '',
       $sign_up: 'Sign up',
+      username_touched: false,
+      email_touched: false,
+      password_touched: false,
+      passwordConfirmation_touched: false,
+      timezone_touched: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.sendRequest = this.sendRequest.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
+    this.isEmpty = this.isEmpty.bind(this);
   }
 
   componentDidMount() {
@@ -78,76 +92,91 @@ export default class SignupForm extends React.Component {
   }
 
   onChange(event) {
+    this.sendRequest(event);
+  }
+
+  onBlur(event) {
     this.setState({
-      [event.target.name]: event.target.value,
-      invalid: false,
+      [`${event.target.name}_touched`]: true,
     });
+    this.sendRequest(event);
   }
 
   onSubmit(event) {
     event.preventDefault();
-    if (this.isValid()) {
-      this.setState({
-        errors: {},
-        isLoading: true,
-      });
-      this.props.userSignupRequest(this.state).then(
-        () => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text: 'You signed up successfully. Welcome!',
-          });
-          this.setState({ isLoading: false, isRedirect: true });
-        },
-      ).catch(error => this.setState({
-        errors: error.response.data,
-        isLoading: false,
-      }));
-    } else {
-      this.setState({
-        invalid: true,
-      });
-    }
+    this.setState({
+      errors: {},
+      isLoading: true,
+    });
+    this.props.userSignupRequest(this.state).then(
+      () => {
+        this.props.addFlashMessage({
+          type: 'success',
+          text: 'You signed up successfully. Welcome!',
+        });
+        this.setState({ isLoading: false, isRedirect: true });
+      },
+    ).catch(error => this.setState({
+      errors: error.response.data,
+      isLoading: false,
+      invalid: true,
+    }));
   }
 
   checkUserExists(event) {
     const field = event.target.name;
     const value = event.target.value;
-    if (value !== '') {
-      if (field === 'username') {
-        this.props.isUsernameExists(value).then((res) => {
-          const errors = this.state.errors;
-          if (res.data.user) {
-            errors[field] = `There is user with such ${field}`;
-          } else {
-            delete errors[field];
-          }
-          this.setState({ errors, invalid: !isEmpty(errors) });
-        });
-      } else if (field === 'email') {
-        this.props.isEmailExists(value).then((res) => {
-          const errors = this.state.errors;
-          if (res.data.user) {
-            errors[field] = `There is user with such ${field}`;
-          } else {
-            delete errors[field];
-          }
-          this.setState({ errors, invalid: !isEmpty(errors) });
-        });
-      }
-    } else {
-      const errors = this.state.errors;
-      errors[field] = '';
-      this.setState({ errors, invalid: !isEmpty(errors) });
+    if (field === 'username' && this.state.username_touched) {
+      this.props.isUsernameExists(value).then((res) => {
+        const errors = this.state.errors;
+        if (res.data.user) {
+          errors[field] = `There is user with such ${field}`;
+        }
+        this.setState({ errors, invalid: !this.isEmpty(errors) });
+      });
+    } else if (field === 'email' && this.state.email_touched) {
+      this.props.isEmailExists(value).then((res) => {
+        const errors = this.state.errors;
+        if (res.data.user) {
+          errors[field] = `There is user with such ${field}`;
+        }
+        this.setState({ errors, invalid: !this.isEmpty(errors) });
+      });
     }
   }
 
-  isValid() {
-    const { errors, isValid } = signupValidation(this.state);
-    if (!isValid) {
-      this.setState({ errors });
-    }
-    return isValid;
+  sendRequest(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    const errors = signupValidation({
+      username: {
+        value: this.state.username,
+        touched: this.state.username_touched,
+      },
+      email: {
+        value: this.state.email,
+        touched: this.state.email_touched,
+      },
+      password: {
+        value: this.state.password,
+        touched: this.state.password_touched,
+      },
+      passwordConfirmation: {
+        value: this.state.passwordConfirmation,
+        touched: this.state.passwordConfirmation_touched,
+      },
+      timezone: {
+        value: this.state.timezone,
+        touched: this.state.timezone_touched,
+      },
+    }, event.target.name, this.state.errors);
+    this.setState({ errors, invalid: !this.isEmpty(errors) });
+    this.checkUserExists(event);
+  }
+
+  isEmpty() {
+    return every(this.state.errors, elem => isUndefined(elem));
   }
 
   render() {
@@ -169,7 +198,7 @@ export default class SignupForm extends React.Component {
           error={errors.username}
           label={this.state.$username}
           onChange={this.onChange}
-          checkUserExists={this.checkUserExists}
+          onBlur={this.onBlur}
           value={this.state.username}
           field="username"
         />
@@ -178,7 +207,7 @@ export default class SignupForm extends React.Component {
           error={errors.email}
           label={this.state.$email}
           onChange={this.onChange}
-          checkUserExists={this.checkUserExists}
+          onBlur={this.onBlur}
           value={this.state.email}
           field="email"
         />
@@ -187,6 +216,7 @@ export default class SignupForm extends React.Component {
           error={errors.password}
           label={this.state.$password}
           onChange={this.onChange}
+          onBlur={this.onBlur}
           value={this.state.password}
           field="password"
           type="password"
@@ -196,6 +226,7 @@ export default class SignupForm extends React.Component {
           error={errors.passwordConfirmation}
           label={this.state.$password_confirmation}
           onChange={this.onChange}
+          onBlur={this.onBlur}
           value={this.state.passwordConfirmation}
           field="passwordConfirmation"
           type="password"
@@ -207,6 +238,7 @@ export default class SignupForm extends React.Component {
             id="signup_timezone"
             value={this.state.timezone}
             onChange={this.onChange}
+            onBlur={this.onBlur}
             type="text"
             name="timezone"
             className="form-control"
@@ -232,7 +264,7 @@ export default class SignupForm extends React.Component {
 SignupForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
-  isUsernameExists: PropTypes.func.isRequired,
-  isEmailExists: PropTypes.func.isRequired,
   lang: PropTypes.string.isRequired,
+  isEmailExists: PropTypes.func.isRequired,
+  isUsernameExists: PropTypes.func.isRequired,
 };
