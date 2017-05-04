@@ -96,10 +96,10 @@ export default class SignupForm extends React.Component {
   }
 
   onBlur(event) {
+    event.persist();
     this.setState({
       [`${event.target.name}_touched`]: true,
-    });
-    this.sendRequest(event);
+    }, () => this.sendRequest(event));
   }
 
   onSubmit(event) {
