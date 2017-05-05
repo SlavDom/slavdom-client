@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import './App.css';
 import Home from './pages/home/Home';
 import About from './pages/about/About';
 import NotFound from './pages/not-found/NotFound';
@@ -13,7 +14,7 @@ import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Profile from './pages/profile/Profile';
 import FlashMessagesList from './components/common/FlashMessagesList';
-import './App.css';
+import requireAuth from './utils/requireAuth';
 
 class App extends React.Component {
 
@@ -55,7 +56,7 @@ class App extends React.Component {
             <Route path={`${match.url}signup`} component={Signup} />
             <Route exact path={`${match.url}news`} component={Home} />
             <Route path={`${match.url}news/:theme`} component={News} />
-            <Route path={`${match.url}users/:login`} component={Profile} />
+            <Route path={`${match.url}users/:login`} component={requireAuth(Profile)} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
