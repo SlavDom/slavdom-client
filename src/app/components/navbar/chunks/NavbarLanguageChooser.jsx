@@ -32,8 +32,11 @@ export default class NavbarLanguageChooser extends React.Component {
       <a
         href=""
         className="dropdown-toggle"
-        type="button" id="dropdownMenu1" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="true"
+        type="button"
+        id="dropdownMenu1"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="true"
       >
         {this.state.lang}
         <span className="caret" />
@@ -45,7 +48,7 @@ export default class NavbarLanguageChooser extends React.Component {
               <img width="30px" src="/images/en_flag.svg" alt="English flag" />
             </div>
             <div className="col-md-8 col-md-offset-1">
-              <a tabIndex="-1" className={this.getClass('en')} onClick={this.props.toEnglish}>
+              <a role="button" tabIndex="-1" className={this.getClass('en')} onClick={this.props.toEnglish}>
                 English
               </a>
             </div>
@@ -57,7 +60,7 @@ export default class NavbarLanguageChooser extends React.Component {
               <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
             </div>
             <div className="col-md-8 col-md-offset-1">
-              <a tabIndex="-1" className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
+              <a role="button" tabIndex="-1" className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
                 Новословница
               </a>
             </div>
@@ -69,7 +72,7 @@ export default class NavbarLanguageChooser extends React.Component {
               <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
             </div>
             <div className="col-md-8 col-md-offset-1">
-              <a tabIndex="-1" className={this.getClass('is')} onClick={this.props.toInterslavic} >
+              <a role="button" tabIndex="-1" className={this.getClass('is')} onClick={this.props.toInterslavic} >
                 Interslavic
               </a>
             </div>

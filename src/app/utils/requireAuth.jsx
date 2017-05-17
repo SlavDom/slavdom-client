@@ -13,6 +13,7 @@ export default function (ComposedComponent) {
       this.state = {
         isRedirect: false,
       };
+      this.makeRedirect = this.makeRedirect.bind(this);
     }
 
     componentWillMount() {
@@ -27,8 +28,12 @@ export default function (ComposedComponent) {
 
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuthenticated) {
-        this.setState({ isRedirect: true });
+        this.makeRedirect();
       }
+    }
+
+    makeRedirect() {
+      this.setState({ isRedirect: true });
     }
 
     render() {

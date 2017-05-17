@@ -101,7 +101,7 @@ class Home extends React.Component {
     if (this.state.newsList.length === 0) {
       newsList = <div>There is no news yet</div>;
     } else {
-      newsList = this.state.newsList.map(item =>
+      newsList = this.state.newsList.map(item => (
         <div key={shortid.generate()} className="jumbotron">
           <div className="row">
             <div className="col-md-3">
@@ -116,7 +116,8 @@ class Home extends React.Component {
               <Link className="btn btn-primary" to={`/news/${item.theme}`}>{this.state.$read_more}</Link>
             </div>
           </div>
-        </div>);
+        </div>
+      ));
     }
     if (this.state.page > 1) {
       prevButton = (<button className="btn btn-primary" id="prevButton" onClick={this.getPrevPage}>
