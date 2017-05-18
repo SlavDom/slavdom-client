@@ -1,3 +1,5 @@
-export default function getValue(name, object) {
-  return name in object ? object.getAttribute(name) : 'You have not added this information';
+import * as _ from 'lodash';
+
+export default function findValue(name, object, string = 'You have not added such information') {
+  return _.has(object, name) ? _.get(object, name) : string;
 }

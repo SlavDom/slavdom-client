@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 import findValue from '../../utils/findValue';
 
@@ -15,21 +16,22 @@ class Profile extends React.Component {
       $login: 'Login',
       name: 'Ivan',
       surname: 'Smirnov',
-      user: {
-        name: undefined,
-        surname: undefined,
-        username: undefined,
-      },
+      user: {},
     };
   }
 
   // Here we should get the information about user
   componentWillMount() {
-    axios.get(`/api/users/get?login=${this.props.match.params.login}`).then((response) => {
-      this.setState({
-        user: response.data,
+    axios.get(`/api/users/get?login=${this.props.match.params.login}
+&username=${jwtDecode(localStorage.jwtToken).username}`)
+      .then((response) => {
+        this.setState({
+          user: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    });
     // TODO: Here we should get the information about user and translations of name/surname
   }
 
@@ -40,9 +42,12 @@ class Profile extends React.Component {
   }
 
   render() {
-    const login = this.props.match.params.login === 'me' ? 'It\'s your login' : this.props.match.params.login;
+    const login = this.props.match.params.login === 'me' ?
+      `It's your login: ${this.state.user.username}` :
+      this.props.match.params.login;
     const name = findValue('name', this.state.user);
     const surname = findValue('surname', this.state.user);
+    const email = findValue('email', this.state.user);
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
@@ -50,7 +55,7 @@ class Profile extends React.Component {
           <p><b>{this.state.$login}</b> {login}</p>
           <p><b>{this.state.$name}</b> {name}</p>
           <p><b>{this.state.$surname}</b> {surname}</p>
-          <p>{this.state.user}</p>
+          <p><b>E-mail</b>: {email}</p>
         </div>
       </div>
     );
