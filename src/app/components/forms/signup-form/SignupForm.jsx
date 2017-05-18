@@ -1,10 +1,9 @@
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import classnames from 'classnames';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import every from 'lodash/every';
-import isUndefined from 'lodash/isUndefined';
 import { Redirect } from 'react-router-dom';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
@@ -22,6 +21,11 @@ export default class SignupForm extends React.Component {
       password: '',
       passwordConfirmation: '',
       timezone: '',
+      usernameTouched: false,
+      emailTouched: false,
+      passwordTouched: false,
+      passwordConfirmationTouched: false,
+      timezoneTouched: false,
       errors: {
         username: undefined,
         email: undefined,
@@ -39,18 +43,12 @@ export default class SignupForm extends React.Component {
       $password_confirmation: '',
       $join_us: '',
       $sign_up: 'Sign up',
-      username_touched: false,
-      email_touched: false,
-      password_touched: false,
-      passwordConfirmation_touched: false,
-      timezone_touched: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
-    this.isEmpty = this.isEmpty.bind(this);
   }
 
   componentDidMount() {
@@ -98,7 +96,7 @@ export default class SignupForm extends React.Component {
   onBlur(event) {
     event.persist();
     this.setState({
-      [`${event.target.name}_touched`]: true,
+      [`${event.target.name}Touched`]: true,
     }, () => this.sendRequest(event));
   }
 
@@ -108,7 +106,14 @@ export default class SignupForm extends React.Component {
       errors: {},
       isLoading: true,
     });
-    this.props.userSignupRequest(this.state).then(
+    const requestPayload = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      passwordConfirmation: this.state.passwordConfirmation,
+      timezone: this.state.timezone,
+    };
+    this.props.userSignupRequest(requestPayload).then(
       () => {
         this.props.addFlashMessage({
           type: 'success',
@@ -126,21 +131,21 @@ export default class SignupForm extends React.Component {
   checkUserExists(event) {
     const field = event.target.name;
     const value = event.target.value;
-    if (field === 'username' && this.state.username_touched) {
+    if (field === 'username' && this.state.usernameTouched) {
       this.props.isUsernameExists(value).then((res) => {
         const errors = this.state.errors;
         if (res.data.user) {
           errors[field] = `There is user with such ${field}`;
         }
-        this.setState({ errors, invalid: !this.isEmpty(errors) });
+        this.setState({ errors, invalid: !isEmpty(errors) });
       });
-    } else if (field === 'email' && this.state.email_touched) {
+    } else if (field === 'email' && this.state.emailTouched) {
       this.props.isEmailExists(value).then((res) => {
         const errors = this.state.errors;
         if (res.data.user) {
           errors[field] = `There is user with such ${field}`;
         }
-        this.setState({ errors, invalid: !this.isEmpty(errors) });
+        this.setState({ errors, invalid: !isEmpty(errors) });
       });
     }
   }
@@ -149,34 +154,23 @@ export default class SignupForm extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    const errors = signupValidation({
-      username: {
-        value: this.state.username,
-        touched: this.state.username_touched,
-      },
-      email: {
-        value: this.state.email,
-        touched: this.state.email_touched,
-      },
-      password: {
-        value: this.state.password,
-        touched: this.state.password_touched,
-      },
-      passwordConfirmation: {
-        value: this.state.passwordConfirmation,
-        touched: this.state.passwordConfirmation_touched,
-      },
-      timezone: {
-        value: this.state.timezone,
-        touched: this.state.timezone_touched,
-      },
-    }, event.target.name, this.state.errors);
-    this.setState({ errors, invalid: !this.isEmpty(errors) });
+    const dataRequestPayload = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      passwordConfirmation: this.state.passwordConfirmation,
+      timezone: this.state.timezone,
+    };
+    const touchedRequestPayload = {
+      usernameTouched: this.state.usernameTouched,
+      emailTouched: this.state.emailTouched,
+      passwordTouched: this.state.passwordTouched,
+      passwordConfirmationTouched: this.state.passwordConfirmationTouched,
+      timezoneTouched: this.state.timezoneTouched,
+    };
+    const { errors, isValid } = signupValidation(dataRequestPayload, touchedRequestPayload);
+    this.setState({ errors, invalid: !isValid });
     this.checkUserExists(event);
-  }
-
-  isEmpty() {
-    return every(this.state.errors, elem => isUndefined(elem));
   }
 
   render() {
