@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+
+import findValue from '../../utils/findValue';
 
 class Profile extends React.Component {
 
@@ -12,11 +15,21 @@ class Profile extends React.Component {
       $login: 'Login',
       name: 'Ivan',
       surname: 'Smirnov',
+      user: {
+        name: undefined,
+        surname: undefined,
+        username: undefined,
+      },
     };
   }
 
   // Here we should get the information about user
-  componentDidMount() {
+  componentWillMount() {
+    axios.get(`/api/users/get?login=${this.props.match.params.login}`).then((response) => {
+      this.setState({
+        user: response.data,
+      });
+    });
     // TODO: Here we should get the information about user and translations of name/surname
   }
 
@@ -28,13 +41,16 @@ class Profile extends React.Component {
 
   render() {
     const login = this.props.match.params.login === 'me' ? 'It\'s your login' : this.props.match.params.login;
+    const name = findValue('name', this.state.user);
+    const surname = findValue('surname', this.state.user);
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
           <h1>Profile page</h1>
           <p><b>{this.state.$login}</b> {login}</p>
-          <p><b>{this.state.$name}</b> {this.state.name}</p>
-          <p><b>{this.state.$surname}</b> {this.state.surname}</p>
+          <p><b>{this.state.$name}</b> {name}</p>
+          <p><b>{this.state.$surname}</b> {surname}</p>
+          <p>{this.state.user}</p>
         </div>
       </div>
     );
@@ -48,7 +64,9 @@ Profile.propTypes = {
 };
 
 Profile.defaultProps = {
-  match: {},
+  match: {
+    params: {},
+  },
   params: {},
 };
 
