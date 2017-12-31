@@ -4,6 +4,7 @@ import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
 
 import './Home.css';
 
@@ -16,22 +17,12 @@ class Home extends React.Component {
       page: 1,
       length: 5,
       amount: 0,
-      $next: '',
-      $previous: '',
-      $read_more: '',
     };
     this.getNextPage = this.getNextPage.bind(this);
     this.getPrevPage = this.getPrevPage.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`/api/translations/page?lang=${this.props.lang}&prefix=newslist`).then((response) => {
-      this.setState({
-        $next: response.data.data.next,
-        $previous: response.data.data.previous,
-        $read_more: response.data.data.read_more,
-      });
-    });
     axios.get(`/api/news/list?lang=${this.props.lang}&page=${this.state.page}&amount=${this.state.length}`)
       .then((response) => {
         this.setState({
@@ -45,25 +36,16 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.lang !== nextProps.lang) {
-      axios.get(`/api/translations/page?lang=${nextProps.lang}&prefix=newslist`).then((response) => {
+    axios.get(`/api/news/list?lang=${nextProps.lang}&page=${this.state.page}&amount=${this.state.length}`)
+      .then((response) => {
         this.setState({
-          $next: response.data.data.next,
-          $previous: response.data.data.previous,
-          $read_more: response.data.data.read_more,
+          newsList: response.data.data,
+          amount: response.data.amount,
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      axios.get(`/api/news/list?lang=${nextProps.lang}&page=${this.state.page}&amount=${this.state.length}`)
-        .then((response) => {
-          this.setState({
-            newsList: response.data.data,
-            amount: response.data.amount,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
   }
 
   getNextPage() {
@@ -113,7 +95,9 @@ class Home extends React.Component {
               <h2>{item.title}</h2>
               <hr />
               <div><p>{item.shortText}</p></div>
-              <Link className="btn btn-primary" to={`/news/${item.theme}`}>{this.state.$read_more}</Link>
+              <Link className="btn btn-primary" to={`/news/${item.theme}`}>
+                <Translate value="read_more" />
+              </Link>
             </div>
           </div>
         </div>
@@ -121,12 +105,12 @@ class Home extends React.Component {
     }
     if (this.state.page > 1) {
       prevButton = (<button className="btn btn-primary" id="prevButton" onClick={this.getPrevPage}>
-        {this.state.$previous}
+        <Translate value="previous" />
       </button>);
     }
     if (this.state.amount - (this.state.page * this.state.length) > 0) {
       nextButton = (<button className="btn btn-primary" id="nextButton" onClick={this.getNextPage}>
-        {this.state.$next}
+        <Translate value="next" />
       </button>);
     }
     return (

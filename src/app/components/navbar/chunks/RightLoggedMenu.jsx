@@ -26,12 +26,7 @@ class RightLoggedMenu extends React.Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li><Link to="/users/me">Profile</Link></li>
-        <NavbarLanguageChooser
-          toEnglish={this.props.toEnglish}
-          toInterslavic={this.props.toInterslavic}
-          toNovoslovnica={this.props.toNovoslovnica}
-          lang={this.props.lang}
-        />
+        <NavbarLanguageChooser />
         <li><Link onClick={this.logout} to="">{this.state.$sign_out}</Link></li>
       </ul>
     );
@@ -39,11 +34,7 @@ class RightLoggedMenu extends React.Component {
 }
 
 RightLoggedMenu.propTypes = {
-  lang: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
-  toEnglish: PropTypes.func.isRequired,
-  toNovoslovnica: PropTypes.func.isRequired,
-  toInterslavic: PropTypes.func.isRequired,
 };
 
 export default connect(null, { logout })(RightLoggedMenu);

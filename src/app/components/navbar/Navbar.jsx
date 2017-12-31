@@ -6,30 +6,10 @@ import PropTypes from 'prop-types';
 import RightLoggedMenu from './chunks/RightLoggedMenu';
 import RightNotLoggedMenu from './chunks/RightNotLoggedMenu';
 import LeftMenu from './chunks/LeftMenu';
-import { toEnglish, toInterslavic, toNovoslovnica } from '../../actions/languageChoice';
 
 class Navbar extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      lang: props.lang,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { lang } = nextProps;
-    const previousValueLang = this.state.lang;
-    const currentValueLang = lang;
-    if (currentValueLang !== previousValueLang) {
-      this.setState({
-        lang: currentValueLang,
-      });
-    }
-  }
-
   render() {
-    const { toEnglish, toInterslavic, toNovoslovnica } = this.props;
     const { isAuthenticated } = this.props.auth;
     return (
       <nav className="navbar navbar-inverse navbar-static-top">
@@ -52,22 +32,10 @@ class Navbar extends React.Component {
           </NavLink>
         </div>
         <div className="navbar-collapse collapse" id="main-navbar">
-          <LeftMenu
-            lang={this.state.lang}
-          />
+          <LeftMenu />
           {isAuthenticated
-              ? <RightLoggedMenu
-                lang={this.state.lang}
-                toNovoslovnica={toNovoslovnica}
-                toEnglish={toEnglish}
-                toInterslavic={toInterslavic}
-              />
-              : <RightNotLoggedMenu
-                lang={this.state.lang}
-                toNovoslovnica={toNovoslovnica}
-                toEnglish={toEnglish}
-                toInterslavic={toInterslavic}
-              />}
+              ? <RightLoggedMenu />
+              : <RightNotLoggedMenu />}
         </div>
       </nav>
     );
@@ -75,7 +43,6 @@ class Navbar extends React.Component {
 }
 
 Navbar.propTypes = {
-  lang: PropTypes.string.isRequired,
   auth: PropTypes.shape({
     isAuthenticated: PropTypes.bool,
     user: PropTypes.shape({
@@ -84,9 +51,6 @@ Navbar.propTypes = {
       iat: PropTypes.number,
     }),
   }).isRequired,
-  toNovoslovnica: PropTypes.func.isRequired,
-  toEnglish: PropTypes.func.isRequired,
-  toInterslavic: PropTypes.func.isRequired,
 };
 
 
@@ -97,8 +61,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {
-  toNovoslovnica,
-  toEnglish,
-  toInterslavic,
-})(Navbar);
+export default connect(mapStateToProps)(Navbar);

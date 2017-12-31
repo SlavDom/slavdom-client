@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { getLocale, setLocale } from 'react-redux-i18n';
 
 import getLang from '../../../utils/languages';
 
@@ -8,20 +8,12 @@ export default class NavbarLanguageChooser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lang: getLang(props.lang),
+      lang: getLang(getLocale),
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.lang !== nextProps.lang) {
-      this.setState({
-        lang: getLang(nextProps.lang),
-      });
-    }
-  }
-
   getClass(name) {
-    if (name === this.props.lang) {
+    if (name === this.state.lang) {
       return 'activeA';
     }
     return 'inactiveA';
@@ -48,7 +40,7 @@ export default class NavbarLanguageChooser extends React.Component {
               <img width="30px" src="/images/en_flag.svg" alt="English flag" />
             </div>
             <div className="col-md-8 col-md-offset-1">
-              <a role="button" tabIndex="-1" className={this.getClass('en')} onClick={this.props.toEnglish}>
+              <a role="button" tabIndex="-1" className={this.getClass('en')} onClick={() => setLocale('en')}>
                 English
               </a>
             </div>
@@ -60,7 +52,7 @@ export default class NavbarLanguageChooser extends React.Component {
               <img width="30px" src="/images/nsl_flag.svg" alt="Novoslovnica flag" />
             </div>
             <div className="col-md-8 col-md-offset-1">
-              <a role="button" tabIndex="-1" className={this.getClass('nsl')} onClick={this.props.toNovoslovnica} >
+              <a role="button" tabIndex="-1" className={this.getClass('nsl')} onClick={() => setLocale('nsl')} >
                 Новословница
               </a>
             </div>
@@ -72,7 +64,7 @@ export default class NavbarLanguageChooser extends React.Component {
               <img width="30px" src="/images/is_flag.svg" alt="Interslavic flag" />
             </div>
             <div className="col-md-8 col-md-offset-1">
-              <a role="button" tabIndex="-1" className={this.getClass('is')} onClick={this.props.toInterslavic} >
+              <a role="button" tabIndex="-1" className={this.getClass('is')} onClick={() => setLocale('is')} >
                 Interslavic
               </a>
             </div>
@@ -82,10 +74,3 @@ export default class NavbarLanguageChooser extends React.Component {
     </li>);
   }
 }
-
-NavbarLanguageChooser.propTypes = {
-  lang: PropTypes.string.isRequired,
-  toEnglish: PropTypes.func.isRequired,
-  toNovoslovnica: PropTypes.func.isRequired,
-  toInterslavic: PropTypes.func.isRequired,
-};

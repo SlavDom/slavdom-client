@@ -1,0 +1,103 @@
+{
+  "name": "slavia-client",
+  "version": "0.2.2",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bcrypt": "^1.0.2",
+    "bootstrap": "^3.3.7",
+    "bootswatch": "^3.3.7",
+    "classnames": "^2.2.5",
+    "es6-promise": "^4.1.0",
+    "express": "^4.15.2",
+    "jquery": "^3.2.1",
+    "jsonwebtoken": "^7.4.0",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.13.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-redux-i18n": "^1.9.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
+    "shortid": "^2.2.8",
+    "validator": "^9.2.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.0",
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-jest": "^22.0.3",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "file-loader": "^0.11.1",
+    "postcss-loader": "^2.0.5",
+    "react-hot-loader": "^1.3.1",
+    "sinon": "^2.2.0",
+    "style-loader": "^0.17.0",
+    "url-loader": "^0.5.8",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "env": {
+      "browser": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "linebreak-style": "off",
+      "max-len": [
+        "error",
+        120
+      ],
+      "no-console": "off",
+      "no-shadow": "off",
+      "react/prefer-stateless-function": "off",
+      "global-require": "off"
+    }
+  },
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "scripts": {
+    "start_new": "babel src --out-dir build && ./build/startServer.js | ./node_modules/.bin/bunyan",
+    "start": "webpack-dev-server",
+    "fix": "eslint ./src/**/js* --fix",
+    "compile": "tsc"
+  }
+}

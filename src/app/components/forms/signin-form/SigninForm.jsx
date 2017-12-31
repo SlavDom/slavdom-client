@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import '../Forms.css';
 import TextFieldGroup from '../../common/TextFieldGroup';
-import signinValidation from '../../../../../../build/server/shared/signin';
+import signinValidation from '../../../../shared/signin';
 
 export default class SigninForm extends React.Component {
 

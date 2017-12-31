@@ -1,14 +1,15 @@
 import React from 'react';
+import { Translate } from 'react-redux-i18n';
 
 class About extends React.Component {
   render() {
     return (
       <div className="container-fluid">
         <div>
-          <h3>About us</h3>
-          <p>About us</p>
-          <h3>Contact us</h3>
-          <p>Our email: <a href="mailto:test.slvadom@yandex.ru">test.slavdom@yandex.ru</a></p>
+          <h3><Translate value="about_us" /></h3>
+          <p><Translate value="about_us" /></p>
+          <h3><Translate value="contact_us" /></h3>
+          <p><Translate value="our_email" />: <a href="mailto:test.slavdom@yandex.ru">test.slavdom@yandex.ru</a></p>
         </div>
       </div>
     );

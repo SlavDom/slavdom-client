@@ -1,10 +1,10 @@
 # slavdom-client
-Client of the SlavDom web portal
+Client of the SlavDom web portal 
 
 ### What is this repository for? ###
 
 * This is a repository for interslavic community web project
-* Version 0.2.1
+* Version 0.3.0
 
 ### How do I get set up? ###
 

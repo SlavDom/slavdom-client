@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
-import signupValidation from '../../../../../../build/server/shared/signup';
+import signupValidation from '../../../../shared/signup';
 
 export default class SignupForm extends React.Component {
 

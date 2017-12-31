@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Translate } from 'react-redux-i18n';
 
 import './News.css';
 
@@ -67,7 +68,7 @@ class News extends React.Component {
         </div>);
       } else {
         newsCommentaries = (<div>
-          There is no commentaries on this news yet.
+          <Translate value="no_commentaries_yet" />
         </div>);
       }
       newsPage = (<div id="newsPage" className="col-md-offset-1 col-md-6">
@@ -112,7 +113,8 @@ class News extends React.Component {
         <br />
       </div>);
     } else {
-      newsPage = (<div className="row">
+      newsPage = (
+        <div className="row">
           There is no translation for this news yet.
         </div>);
     }
