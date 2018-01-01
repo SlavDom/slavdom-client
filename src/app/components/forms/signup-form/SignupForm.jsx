@@ -142,7 +142,7 @@ export default class SignupForm extends React.Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <h1>{this.state.$join_us}</h1>
+        <h1><Translate value="join_us" /></h1>
 
         <TextFieldGroup
           error={errors.username}

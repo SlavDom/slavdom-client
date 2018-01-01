@@ -15,7 +15,7 @@ class Footer extends React.Component {
   render() {
     return (
       <footer>
-        <div className="row">
+        <div>
           <div className="col-md-3">
             <ul className="nav navbar-nav navbar-right">
               <li>
