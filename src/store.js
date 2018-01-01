@@ -6,7 +6,8 @@ import rootReducer from './rootReducer';
 
 const translationsObject = {
   en: require('../resources/en.json'),
-  ru: require('../resources/ru.json'),
+  nsl: require('../resources/nsl.json'),
+  is: require('../resources/is.json'),
 };
 
 const store = createStore(

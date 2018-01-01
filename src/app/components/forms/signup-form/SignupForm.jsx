@@ -2,9 +2,9 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import classnames from 'classnames';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
 
 import TextFieldGroup from '../../common/TextFieldGroup';
 import timezones from '../../../utils/timezones';
@@ -37,56 +37,12 @@ export default class SignupForm extends React.Component {
       invalid: false,
       isRedirect: false,
       lang: props.lang,
-      $email: '',
-      $username: '',
-      $password: '',
-      $password_confirmation: '',
-      $join_us: '',
-      $sign_up: 'Sign up',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
-  }
-
-  componentDidMount() {
-    axios.get(`/api/translations/page?lang=${this.state.lang}&prefix=reg`)
-      .then((response) => {
-        this.setState({
-          $email: response.data.data.email,
-          $username: response.data.data.username,
-          $password: response.data.data.password,
-          $password_confirmation: response.data.data.password_confirmation,
-          $join_us: response.data.data.join_us,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { lang } = nextProps;
-    const previousValue = this.state.lang;
-    const currentValue = lang;
-    if (currentValue !== previousValue) {
-      axios.get(`/api/translations/page?lang=${currentValue}&prefix=reg`)
-        .then((response) => {
-          this.setState({
-            $email: response.data.data.email,
-            $username: response.data.data.username,
-            $password: response.data.data.password,
-            $password_confirmation: response.data.data.password_confirmation,
-            $join_us: response.data.data.join_us,
-            lang: currentValue,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
   }
 
   onChange(event) {
@@ -190,7 +146,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.username}
-          label={this.state.$username}
+          label="username"
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={this.state.username}
@@ -199,7 +155,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.email}
-          label={this.state.$email}
+          label="email"
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={this.state.email}
@@ -208,7 +164,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.password}
-          label={this.state.$password}
+          label="password"
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={this.state.password}
@@ -218,7 +174,7 @@ export default class SignupForm extends React.Component {
 
         <TextFieldGroup
           error={errors.passwordConfirmation}
-          label={this.state.$password_confirmation}
+          label="password_confirmation"
           onChange={this.onChange}
           onBlur={this.onBlur}
           value={this.state.passwordConfirmation}
@@ -247,7 +203,7 @@ export default class SignupForm extends React.Component {
           <button
             className="btn btn-primary btn-lg"
             disabled={this.state.isLoading || this.state.invalid}
-          >{this.state.$sign_up}</button>
+          ><Translate value="sign_up" /></button>
         </div>
 
       </form>

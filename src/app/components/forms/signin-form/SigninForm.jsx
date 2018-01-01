@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
 
 import '../Forms.css';
 import TextFieldGroup from '../../common/TextFieldGroup';
@@ -19,46 +19,9 @@ export default class SigninForm extends React.Component {
       isLoading: false,
       isRedirect: false,
       lang: props.lang,
-      $username: '',
-      $password: '',
-      $email: '',
-      $sign_in: 'Sign in',
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
-    axios.get(`/api/translations/page?lang=${this.state.lang}&prefix=reg`)
-      .then((response) => {
-        this.setState({
-          $username: response.data.data.username,
-          $password: response.data.data.password,
-          $email: response.data.data.email,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { lang } = nextProps;
-    const previousValue = this.state.lang;
-    const currentValue = lang;
-    if (currentValue !== previousValue) {
-      axios.get(`/api/translations/page?lang=${currentValue}&prefix=reg`)
-        .then((response) => {
-          this.setState({
-            $username: response.data.data.username,
-            $password: response.data.data.password,
-            lang: currentValue,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
   }
 
   onSubmit(event) {
@@ -99,13 +62,13 @@ export default class SigninForm extends React.Component {
       <div>
         <h2>{this.state.$sign_in}</h2>
         <form onSubmit={this.onSubmit}>
-          <h1>{this.state.$join_us}</h1>
+          <h1><Translate value="join_us" /></h1>
 
           { errors.form && <div className="alert alert-danger">{ errors.form }</div> }
 
           <TextFieldGroup
             field="identifier"
-            label={`${this.state.$username} / ${this.state.$email}`}
+            label="username/email"
             value={this.state.identifier}
             error={errors.identifier}
             onChange={this.onChange}
@@ -113,7 +76,7 @@ export default class SigninForm extends React.Component {
 
           <TextFieldGroup
             field="password"
-            label={this.state.$password}
+            label="password"
             value={this.state.password}
             error={errors.password}
             onChange={this.onChange}
@@ -124,7 +87,7 @@ export default class SigninForm extends React.Component {
             <button
               className="btn btn-primary btn-lg"
               disabled={this.state.isLoading}
-            >{this.state.$sign_in}</button>
+            ><Translate value="sign_in" /></button>
           </div>
         </form>
       </div>

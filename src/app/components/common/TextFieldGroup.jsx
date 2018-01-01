@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { Translate } from 'react-redux-i18n';
 
 const TextFieldGroup = ({ field, value, label, error, type, onChange, onBlur }) => (
   <div className={classnames('form-group', { 'has-error': error })}>
-    <label className="control-label" htmlFor="signup_username">{label}</label>
+    <label className="control-label" htmlFor="signup_username"><Translate value={label} /></label>
     <input
       id="signup_username"
       value={value}

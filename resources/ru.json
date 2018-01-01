@@ -1,3 +1,19 @@
 {
-  
+  "about_us": "О нас",
+  "contact_us": "Контакты",
+  "our_email": "Наша почта",
+  "previous": "Предыдущая",
+  "next": "Следующая",
+  "read_more": "Читать дальще",
+  "no_commentaries_yet": "Для этой новости ещё нет комментариев",
+  "faq": "FAQ",
+  "date": "",
+  "views": "",
+  "category": "",
+  "author": "",
+  "no_translation_for_news": "Для этой новости ещё нет перевода.",
+  "page_not_exist": "К сожалению, данной страницы не существует",
+  "sign_up": "Зарегистрироваться",
+  "sign_in": "Войти",
+  "sign_out": "Выйти"
 }
