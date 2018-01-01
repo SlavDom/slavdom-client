@@ -13,6 +13,7 @@ module.exports = {
     publicPath: '/',
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: './public',
     hot: true
   },
