@@ -6,5 +6,14 @@
   "next": "Слѣдна",
   "read_more": "Читати далѣй",
   "no_commentaries_yet": "There is no commentaries on this news yet.",
-  "faq": "FAQaaa"
+  "faq": "FAQ",
+  "date": "",
+  "views": "",
+  "category": "",
+  "author": "",
+  "no_translation_for_news": "There is no translation for this news yet.",
+  "page_not_exist": "We are sorry but the page you are looking for does not exist.",
+  "sign_up": "Sign up",
+  "sign_in": "Sign in",
+  "sign_out": "Sign out"
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Translate } from 'react-redux-i18n';
 
 import './RightMenu.css';
 import NavbarLanguageChooser from './NavbarLanguageChooser';
@@ -19,8 +20,16 @@ class RightNotLoggedMenu extends React.Component {
       <ul className="nav navbar-nav navbar-right">
         <li><Link to="">Forum</Link></li>
         <NavbarLanguageChooser />
-        <li><Link to="/signup">{this.state.$sign_up}</Link></li>
-        <li><Link to="/signin">{this.state.$sign_in}</Link></li>
+        <li>
+          <Link to="/signup">
+            <Translate value="sign_up" />
+          </Link>
+        </li>
+        <li>
+          <Link to="/signin">
+            <Translate value="sign_in" />
+          </Link>
+        </li>
       </ul>
     );
   }

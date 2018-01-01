@@ -81,16 +81,16 @@ class News extends React.Component {
           <div className="col-md-6">
             <ul>
               <li>
-                {this.state.$category}:
+                <Translate value="category" />:
               </li>
               <li>
-                Date: {this.state.news.createdAt}
+                <Translate value="date" />: {this.state.news.createdAt}
               </li>
               <li>
-                {this.state.$author}: someone
+                <Translate value="author" />: someone
               </li>
               <li>
-                Views:
+                <Translate value="views" />:
               </li>
             </ul>
           </div>
@@ -115,7 +115,7 @@ class News extends React.Component {
     } else {
       newsPage = (
         <div className="row">
-          There is no translation for this news yet.
+          <Translate value="no_translation_for_news" />
         </div>);
     }
     return (<div className="row">{newsPage}</div>);

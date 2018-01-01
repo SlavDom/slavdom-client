@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Translate } from 'react-redux-i18n';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -52,10 +53,10 @@ class Profile extends React.Component {
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
           <h1>Profile page</h1>
-          <p><b>{this.state.$login}</b> {login}</p>
-          <p><b>{this.state.$name}</b> {name}</p>
-          <p><b>{this.state.$surname}</b> {surname}</p>
-          <p><b>E-mail</b>: {email}</p>
+          <p><b><Translate value="login" /></b> {login}</p>
+          <p><b><Translate value="name" /></b> {name}</p>
+          <p><b><Translate value="surname" /></b> {surname}</p>
+          <p><b><Translate value="email" /></b>: {email}</p>
         </div>
       </div>
     );
